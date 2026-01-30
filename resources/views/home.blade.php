@@ -124,7 +124,7 @@
                         <p class="text-sm text-cyan-700 font-semibold mt-1">{{ $card['price'] }}</p>
                         <p class="text-sm text-slate-600 mt-2">{{ $card['desc'] }}</p>
                         <div class="mt-4 flex gap-2">
-                            <a href="https://wa.me/254774849471" class="flex-1 text-center px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold" target="_blank" rel="noreferrer">Enquire</a>
+                            <a href="{{ route('products.index') }}" class="flex-1 text-center px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold">View</a>
                             <a href="tel:+254774849471" class="flex-1 text-center px-4 py-2 rounded-full border border-slate-300 text-slate-900 text-sm font-semibold">Call</a>
                         </div>
                     </div>
