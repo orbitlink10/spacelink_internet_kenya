@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect explicit /public to site root
+    RewriteRule ^public/?$ / [R=301,L]
+
+    # Serve existing files and directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Send everything else to the Laravel front controller
+    RewriteRule ^ public/index.php [L]
+</IfModule>
