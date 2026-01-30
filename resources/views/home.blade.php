@@ -3,89 +3,54 @@
 @section('title', 'Spacelink Internet Kenya | High-Speed Satellite & Broadband')
 
 @section('content')
-    <!-- Utility top bar -->
-    <div class="bg-gradient-to-r from-orange-50 via-white to-cyan-50 border-b border-slate-200/70">
-        <div class="max-w-6xl mx-auto px-6 py-2 flex items-center justify-end text-xs md:text-sm text-slate-600 gap-4">
-            <div class="flex items-center gap-1"><span class="text-slate-500">❤</span> Wishlist</div>
-            <div class="flex items-center gap-1"><span class="text-slate-500">👤</span> Sign in</div>
-            <div class="flex items-center gap-1"><span class="text-slate-500">📞</span> +254 741 446 150</div>
-        </div>
-    </div>
-
-    <!-- Search bar row -->
-    <div class="bg-white border-b border-slate-200 shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
-            <div class="hidden md:block">
-                <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center">
-                    <span class="text-xs text-slate-500">LOGO</span>
-                </div>
-            </div>
-            <div class="flex-1">
-                <div class="relative">
-                    <input type="text" placeholder="Search for products..." class="w-full rounded-full border border-slate-200 bg-slate-50 py-3 pl-5 pr-12 text-sm focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100" />
-                    <button class="absolute right-1 top-1 bottom-1 px-4 rounded-full bg-orange-400 text-white text-sm font-semibold shadow-md">🔍</button>
-                </div>
-            </div>
-            <div class="hidden md:flex items-center gap-4 text-slate-600 text-lg">
-                <button class="hover:text-slate-900">❤</button>
-                <button class="hover:text-slate-900 relative">
-                    🛒
-                    <span class="absolute -right-2 -top-1 text-[10px] px-2 py-0.5 bg-orange-500 text-white rounded-full">0</span>
-                </button>
-                <button class="hover:text-slate-900">👤</button>
+    <!-- Top contact strip -->
+    <div class="bg-slate-900 text-slate-100 text-sm">
+        <div class="max-w-6xl mx-auto px-6 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+            <span class="font-semibold">Need help? +254 741 446 150</span>
+            <div class="flex items-center gap-4">
+                <a href="mailto:info@spacelinkkenya.co.ke" class="hover:text-white/80">info@spacelinkkenya.co.ke</a>
+                <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="hover:text-white/80">WhatsApp</a>
             </div>
         </div>
     </div>
 
-    <!-- Primary nav -->
-    <div class="bg-white border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14 text-sm text-slate-700">
-            <div class="flex items-center gap-6 font-semibold">
-                <a href="#" class="hover:text-slate-900">Home</a>
+    <!-- Main nav -->
+    <header class="bg-white border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm">SL</div>
+                <div>
+                    <p class="text-lg font-bold text-slate-900 leading-tight">Spacelink Internet</p>
+                    <p class="text-xs text-slate-500">Starlink & Broadband Experts</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-700">
+                <a href="#hero" class="hover:text-slate-900">Home</a>
                 <a href="#packages" class="hover:text-slate-900">Shop</a>
                 <a href="#features" class="hover:text-slate-900">Services</a>
-                <a href="#installations" class="hover:text-slate-900">Installations</a>
-                <a href="#blog" class="hover:text-slate-900">Blog</a>
-            </div>
-            <div class="hidden md:flex items-center gap-2 text-slate-600">
-                <span class="text-slate-500">🎧</span>
-                <span class="text-sm font-medium">Need help? +254 741 446 150</span>
+                <a href="#contact" class="hover:text-slate-900">Contact</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-3">
+                <a href="tel:+254774849471" class="px-3 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold shadow-sm">Call Sales</a>
             </div>
         </div>
-    </div>
-
-    <!-- Topic pills -->
-    <div class="bg-white border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center gap-3 overflow-x-auto text-xs md:text-sm">
-            @php
-                $topics = [
-                    'Starlink Extension',
-                    'Starlink Kenya Packages',
-                    'Starlink Kenya Price',
-                    'Where to buy Starlink in Kenya',
-                    'ISP Billing Solutions',
-                    'Installation Support',
-                ];
-            @endphp
-            <button class="h-8 w-8 rounded-full border border-slate-200 bg-white shadow-sm">←</button>
-            @foreach($topics as $topic)
-                <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-200 shadow-sm whitespace-nowrap">{{ $topic }}</div>
-            @endforeach
-            <button class="h-8 w-8 rounded-full border border-slate-200 bg-white shadow-sm">→</button>
-        </div>
-    </div>
+    </header>
 
     <!-- Hero -->
-    <section class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-cyan-50"></div>
-        <div class="max-w-6xl mx-auto px-6 py-12 grid lg:grid-cols-2 gap-10 relative">
-            <div class="space-y-5">
-                <span class="inline-flex px-4 py-2 rounded-full bg-slate-100 text-sm text-blue-700 font-semibold">Welcome to Spacelink Internet Kenya</span>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">Starlink Kenya | High-Speed Satellite Internet</h1>
-                <p class="text-lg text-slate-600">Reliable, high-speed internet solutions for homes, businesses, and remote sites across Kenya. We deliver kits, handle installs, and keep you online with responsive support.</p>
+    <section id="hero" class="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-cyan-50 border-b border-slate-200/70">
+        <div class="max-w-6xl mx-auto px-6 py-14 grid lg:grid-cols-2 gap-10">
+            <div class="space-y-6">
+                <span class="inline-flex px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-semibold uppercase tracking-[0.22em]">Kenya-wide installs</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">Starlink & Spacelink Internet for homes, SMEs, and remote sites</h1>
+                <p class="text-lg text-slate-600">Kits delivered, installed, and optimized by local engineers. Reliable connectivity with responsive support and flexible plans.</p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="https://wa.me/254774849471" class="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
-                    <a href="tel:+254774849471" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">Call +254 774 849 471</a>
+                    <a href="{{ route('products.index') }}" class="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md">View plans</a>
+                    <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">Chat with an expert</a>
+                </div>
+                <div class="flex flex-wrap gap-6 text-sm text-slate-600">
+                    <div><span class="font-semibold text-slate-900">2000+ </span>Installs delivered</div>
+                    <div><span class="font-semibold text-slate-900">Kenya-wide </span>field teams</div>
+                    <div><span class="font-semibold text-slate-900">24/7 </span>support channel</div>
                 </div>
             </div>
             <div class="relative">
