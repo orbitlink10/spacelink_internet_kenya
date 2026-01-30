@@ -1,8 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect explicit /public to site root
+    # Redirect any /public or /public/... request to the site root
     RewriteRule ^public/?$ / [R=301,L]
+    RewriteRule ^public/(.*)$ /$1 [R=301,L]
 
     # Serve existing files and directories
     RewriteCond %{REQUEST_FILENAME} -f [OR]
