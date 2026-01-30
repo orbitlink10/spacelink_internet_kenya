@@ -1,9 +1,7 @@
 <?php
 /**
- * Simple front controller for hosts that point the document root at the project
- * root instead of the Laravel /public directory.
- *
- * It just redirects to /public/ where the real front controller lives.
+ * Front controller shim for hosts pointing the docroot at the project root.
+ * It simply includes the real Laravel front controller inside /public
+ * without redirecting the browser (keeps URLs clean).
  */
-header('Location: public/');
-exit;
+require __DIR__ . '/public/index.php';
