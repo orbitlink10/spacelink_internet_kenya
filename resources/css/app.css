@@ -1,0 +1,37 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Rich text styling for product & category descriptions */
+.rich-copy {
+    font-family: var(--font-sans);
+    color: #0f172a; /* slate-900-ish */
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+.rich-copy h1,
+.rich-copy h2,
+.rich-copy h3,
+.rich-copy h4 {
+    color: #0f3b66;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 1.2em 0 0.4em;
+}
+.rich-copy h1 { font-size: 2.5rem; }
+.rich-copy h2 { font-size: 2rem; }
+.rich-copy h3 { font-size: 1.5rem; }
+.rich-copy h4 { font-size: 1.25rem; }
+.rich-copy p { margin: 0.9em 0; }
+.rich-copy strong { font-weight: 800; }
+.rich-copy a { color: #0f75b8; text-decoration: underline; }
+.rich-copy ul, .rich-copy ol { margin: 0.9em 0 0.9em 1.25em; }
+.rich-copy li { margin-bottom: 0.35em; }
