@@ -17,13 +17,35 @@
         <a href="#content-form" class="px-5 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-lg shadow-blue-200 flex items-center gap-2">✏️ Edit Sections</a>
     </div>
 
-    <form id="content-form" method="POST" action="{{ route('admin.homepage.save') }}" class="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <form id="content-form" method="POST" action="{{ route('admin.homepage.save') }}" enctype="multipart/form-data" class="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
         @csrf
         <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100">
             <p class="text-lg font-semibold text-slate-900">Sections</p>
             <span class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Live form</span>
         </div>
         <div class="px-6 py-8 space-y-8">
+            <div class="grid gap-6 lg:grid-cols-2">
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-700" for="hero_image">Hero image</label>
+                    @php
+                        $heroPath = $content['hero_image'] ?? null;
+                        $heroUrl = $heroPath && Storage::disk('public')->exists($heroPath) ? Storage::disk('public')->url($heroPath) : null;
+                    @endphp
+                    @if($heroUrl)
+                        <div class="w-full h-40 rounded-xl border border-slate-200 overflow-hidden bg-slate-50">
+                            <img src="{{ $heroUrl }}" alt="Hero image" class="w-full h-full object-cover">
+                        </div>
+                    @else
+                        <div class="w-full h-40 rounded-xl border border-dashed border-slate-200 bg-slate-50 flex items-center justify-center text-slate-400 text-sm">
+                            No hero image uploaded yet
+                        </div>
+                    @endif
+                    <input id="hero_image" name="hero_image" type="file" accept="image/*" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-400 focus:ring focus:ring-blue-100">
+                    <p class="text-xs text-slate-500">Upload a large, high-quality JPG/PNG (max 2MB).</p>
+                    @error('hero_image')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+                </div>
+            </div>
+
             <div class="grid gap-6 lg:grid-cols-2">
                 <div class="space-y-3">
                     <label class="block text-sm font-semibold text-slate-700" for="hero_title">Hero title</label>
@@ -74,6 +96,12 @@
                 @error('testimonial_blurb')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
 
+            <div class="space-y-3">
+                <label class="block text-sm font-semibold text-slate-700" for="long_content">Home page content (rich text)</label>
+                <textarea id="long_content" name="long_content" rows="10" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-400 focus:ring focus:ring-blue-100">{{ old('long_content', $content['long_content']) }}</textarea>
+                @error('long_content')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+            </div>
+
             <div class="flex items-center gap-3 pt-2">
                 <button type="submit" class="px-5 py-3 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-200">Save</button>
                 <a href="{{ route('admin.dashboard') }}" class="px-5 py-3 rounded-xl border border-slate-300 text-slate-800 font-semibold bg-white">Cancel</a>
@@ -82,3 +110,22 @@
     </form>
 </div>
 @endsection
+
+@push('scripts')
+    @once
+        <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
+    @endonce
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.tinymce) {
+                tinymce.init({
+                    selector: '#long_content',
+                    menubar: true,
+                    plugins: 'link lists table code',
+                    toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table | code',
+                    height: 400,
+                });
+            }
+        });
+    </script>
+@endpush

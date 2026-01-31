@@ -126,14 +126,63 @@
 
     <!-- Contact CTA -->
     <section id="contact" class="py-14 bg-white border-t border-slate-200">
-        <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="max-w-4xl mx-auto px-6 text-center space-y-4">
             <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Ready to connect?</p>
-            <h2 class="mt-3 text-3xl font-bold text-slate-900">Talk to our team today</h2>
-            <p class="mt-3 text-slate-600">Share your location and needs; we’ll recommend the best kit and schedule installation.</p>
-            <div class="mt-6 flex flex-col md:flex-row items-center justify-center gap-3">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Talk to our team today</h2>
+            <p class="text-slate-600 text-lg">Share your location and needs; we’ll recommend the best kit and schedule installation.</p>
+            <div class="pt-4 flex flex-col md:flex-row items-center justify-center gap-3">
                 <a class="px-6 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md hover:bg-slate-800" href="https://wa.me/254774849471" target="_blank" rel="noreferrer">WhatsApp Sales</a>
                 <a class="px-6 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white" href="mailto:info@spacelinkkenya.co.ke">Email us</a>
                 <a class="px-6 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white" href="tel:+254774849471">Call +254 774 849 471</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- In-depth content block (placed after contact) -->
+    <section id="guide" class="py-14 bg-gradient-to-br from-white via-slate-50 to-orange-50 border-b border-slate-200/70">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="bg-white/90 backdrop-blur rounded-3xl shadow-xl border border-slate-200/70 overflow-hidden">
+                <div class="h-1.5 bg-gradient-to-r from-orange-400 via-cyan-400 to-blue-500"></div>
+                <div class="p-8 md:p-10 lg:p-12 space-y-6">
+                    <div class="space-y-3">
+                        <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Home Page Content</p>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">Starlink Kenya: A Comprehensive Guide to Satellite Internet Connectivity</h2>
+                        <p class="text-lg text-slate-600 leading-relaxed">Explore how low‑earth orbit satellites are transforming access across Kenya. Understand speeds, installation, pricing, benefits, and how Starlink compares to fibre, 4G/5G, and microwave links.</p>
+                    </div>
+                    <div class="space-y-4 text-slate-700 leading-relaxed">
+                        <p>While cities like Nairobi and Mombasa grow fast, millions in rural and peri‑urban regions remain underserved. Terrain, long fibre hauls, and sparse populations make legacy broadband costly. Starlink bypasses those hurdles by bringing <strong>fast, reliable internet directly to homes and businesses nationwide</strong>.</p>
+                        <h3 class="text-xl font-bold text-slate-900">What you’ll learn in this guide</h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>How Starlink works and why latency is much lower than traditional satellite.</li>
+                            <li>Typical Kenyan install timelines, roof/ground mounting options, and power needs.</li>
+                            <li>Realistic speeds, fair‑use considerations, and how weather impacts performance.</li>
+                            <li>Costs: hardware, monthly plans, and when to bundle with SD‑WAN or 4G backup.</li>
+                            <li>Best fits: remote homes, SMEs, construction sites, agribusiness, schools, and events.</li>
+                        </ul>
+                        <p class="text-slate-700">Our engineering teams handle delivery, mounting, alignment, Wi‑Fi design, and proactive monitoring. We also advise when to pair Starlink with fibre or LTE for higher uptime.</p>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+                        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                            <p class="text-xs uppercase tracking-[0.25em] text-orange-500">Coverage</p>
+                            <p class="mt-2 font-semibold text-slate-900">Nationwide installs</p>
+                            <p class="text-slate-600 mt-1">Urban, peri‑urban, and hard‑to‑reach rural locations.</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                            <p class="text-xs uppercase tracking-[0.25em] text-orange-500">Uptime</p>
+                            <p class="mt-2 font-semibold text-slate-900">Dual‑path options</p>
+                            <p class="text-slate-600 mt-1">Starlink + fibre/4G failover, SD‑WAN, QoS, and monitoring.</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                            <p class="text-xs uppercase tracking-[0.25em] text-orange-500">Support</p>
+                            <p class="mt-2 font-semibold text-slate-900">Local field teams</p>
+                            <p class="text-slate-600 mt-1">Certified installers, on‑site surveys, and 24/7 help desk.</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-wrap gap-3">
+                        <a href="#contact" class="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md">Talk to our engineers</a>
+                        <a href="{{ route('products.index') }}" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">View plans</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

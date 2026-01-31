@@ -90,6 +90,8 @@ Route::middleware('admin.auth')->group(function () {
             'highlight_two' => 'Human support that actually answers',
             'highlight_three' => 'Flexible plans for homes and SMEs',
             'testimonial_blurb' => 'The install was same-day and the speeds stayed fast.',
+            'hero_image' => null,
+            'long_content' => 'Add your detailed home page content here.',
         ];
 
         $stored = [];
@@ -112,7 +114,21 @@ Route::middleware('admin.auth')->group(function () {
             'highlight_two' => ['required', 'string', 'max:160'],
             'highlight_three' => ['required', 'string', 'max:160'],
             'testimonial_blurb' => ['required', 'string', 'max:220'],
+            'hero_image' => ['nullable', 'image', 'max:2048'],
+            'long_content' => ['nullable', 'string'],
         ]);
+
+        $existing = [];
+        if (Storage::disk('local')->exists('homepage.json')) {
+            $existing = json_decode(Storage::disk('local')->get('homepage.json'), true) ?? [];
+        }
+
+        if ($request->hasFile('hero_image')) {
+            $path = $request->file('hero_image')->store('homepage', 'public');
+            $data['hero_image'] = $path;
+        } else {
+            $data['hero_image'] = $existing['hero_image'] ?? null;
+        }
 
         Storage::disk('local')->put('homepage.json', json_encode($data, JSON_PRETTY_PRINT));
 
