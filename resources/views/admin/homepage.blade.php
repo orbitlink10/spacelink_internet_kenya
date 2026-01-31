@@ -29,7 +29,8 @@
                     <label class="block text-sm font-semibold text-slate-700" for="hero_image">Hero image</label>
                     @php
                         $heroPath = $content['hero_image'] ?? null;
-                        $heroUrl = $heroPath && Storage::disk('public')->exists($heroPath) ? Storage::disk('public')->url($heroPath) : null;
+                        $heroLocal = $heroPath ? public_path('storage/'.$heroPath) : null;
+                        $heroUrl = ($heroLocal && file_exists($heroLocal)) ? asset('storage/'.$heroPath) : null;
                     @endphp
                     @if($heroUrl)
                         <div class="w-full h-40 rounded-xl border border-slate-200 overflow-hidden bg-slate-50">
