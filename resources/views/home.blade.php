@@ -159,16 +159,20 @@
                         <p class="text-lg text-slate-600 leading-relaxed">Explore how low‑earth orbit satellites are transforming access across Kenya. Understand speeds, installation, pricing, benefits, and how Starlink compares to fibre, 4G/5G, and microwave links.</p>
                     </div>
                     <div class="space-y-4 text-slate-700 leading-relaxed">
-                        <p>While cities like Nairobi and Mombasa grow fast, millions in rural and peri‑urban regions remain underserved. Terrain, long fibre hauls, and sparse populations make legacy broadband costly. Starlink bypasses those hurdles by bringing <strong>fast, reliable internet directly to homes and businesses nationwide</strong>.</p>
-                        <h3 class="text-xl font-bold text-slate-900">What you’ll learn in this guide</h3>
-                        <ul class="list-disc pl-5 space-y-2">
-                            <li>How Starlink works and why latency is much lower than traditional satellite.</li>
-                            <li>Typical Kenyan install timelines, roof/ground mounting options, and power needs.</li>
-                            <li>Realistic speeds, fair‑use considerations, and how weather impacts performance.</li>
-                            <li>Costs: hardware, monthly plans, and when to bundle with SD‑WAN or 4G backup.</li>
-                            <li>Best fits: remote homes, SMEs, construction sites, agribusiness, schools, and events.</li>
-                        </ul>
-                        <p class="text-slate-700">Our engineering teams handle delivery, mounting, alignment, Wi‑Fi design, and proactive monitoring. We also advise when to pair Starlink with fibre or LTE for higher uptime.</p>
+                        @if(!empty($content['long_content']))
+                            {!! $content['long_content'] !!}
+                        @else
+                            <p>While cities like Nairobi and Mombasa grow fast, millions in rural and peri‑urban regions remain underserved. Terrain, long fibre hauls, and sparse populations make legacy broadband costly. Starlink bypasses those hurdles by bringing <strong>fast, reliable internet directly to homes and businesses nationwide</strong>.</p>
+                            <h3 class="text-xl font-bold text-slate-900">What you’ll learn in this guide</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>How Starlink works and why latency is much lower than traditional satellite.</li>
+                                <li>Typical Kenyan install timelines, roof/ground mounting options, and power needs.</li>
+                                <li>Realistic speeds, fair‑use considerations, and how weather impacts performance.</li>
+                                <li>Costs: hardware, monthly plans, and when to bundle with SD‑WAN or 4G backup.</li>
+                                <li>Best fits: remote homes, SMEs, construction sites, agribusiness, schools, and events.</li>
+                            </ul>
+                            <p class="text-slate-700">Our engineering teams handle delivery, mounting, alignment, Wi‑Fi design, and proactive monitoring. We also advise when to pair Starlink with fibre or LTE for higher uptime.</p>
+                        @endif
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm">
                         <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
