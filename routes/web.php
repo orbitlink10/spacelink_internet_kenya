@@ -32,7 +32,14 @@ Route::get('/', function () {
 
     $content = array_merge($defaults, $stored);
 
-    return view('home', compact('content'));
+    $products = \App\Models\Product::with(['images'])
+        ->where('is_active', true)
+        ->orderByDesc('is_featured')
+        ->orderBy('created_at', 'desc')
+        ->take(3)
+        ->get();
+
+    return view('home', compact('content', 'products'));
 });
 
 // Storefront

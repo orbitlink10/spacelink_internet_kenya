@@ -81,28 +81,40 @@
                     <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Shop</p>
                     <h2 class="mt-3 text-3xl font-bold text-slate-900">Popular Starlink & Spacelink offers</h2>
                 </div>
-                <a class="inline-flex items-center gap-2 text-cyan-700 hover:text-cyan-900 font-semibold" href="#">View all →</a>
+                <a class="inline-flex items-center gap-2 text-cyan-700 hover:text-cyan-900 font-semibold" href="{{ route('products.index') }}">View all →</a>
             </div>
             <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                @php
-                    $cards = [
-                        ['title' => 'Starlink Residential Kit', 'price' => 'From KES 89,000', 'desc' => 'Delivered, configured, and optimized for Kenyan conditions.'],
-                        ['title' => 'Spacelink 4G Home Kit', 'price' => 'From KES 6,500 setup', 'desc' => 'Fast 4G with high‑gain antenna for estates and apartments.'],
-                        ['title' => 'Corporate Fibre & SD-WAN', 'price' => 'Custom quote', 'desc' => 'Dedicated bandwidth, auto-failover, and managed routers.'],
-                    ];
-                @endphp
-                @foreach($cards as $card)
+                @forelse($products as $product)
+                    @php
+                        $img = $product->images->first();
+                        $imgUrl = $img ? $img->url : null;
+                        $price = $product->sale_price ?? $product->price;
+                    @endphp
                     <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <div class="h-32 mb-4 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 text-sm">Image</div>
-                        <h3 class="text-lg font-bold text-slate-900">{{ $card['title'] }}</h3>
-                        <p class="text-sm text-cyan-700 font-semibold mt-1">{{ $card['price'] }}</p>
-                        <p class="text-sm text-slate-600 mt-2">{{ $card['desc'] }}</p>
+                        <div class="h-32 mb-4 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 text-sm overflow-hidden">
+                            @if($imgUrl)
+                                <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            @else
+                                Image
+                            @endif
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">{{ $product->name }}</h3>
+                        <p class="text-sm text-cyan-700 font-semibold mt-1">
+                            @if($product->sale_price)
+                                From KES {{ number_format($product->sale_price) }} <span class="text-slate-400 line-through">KES {{ number_format($product->price) }}</span>
+                            @else
+                                From KES {{ number_format($price) }}
+                            @endif
+                        </p>
+                        <p class="text-sm text-slate-600 mt-2">{{ Str::limit($product->description, 90) }}</p>
                         <div class="mt-4 flex gap-2">
-                            <a href="{{ route('products.index') }}" class="flex-1 text-center px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold">View</a>
+                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 text-center px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold">View</a>
                             <a href="tel:+254774849471" class="flex-1 text-center px-4 py-2 rounded-full border border-slate-300 text-slate-900 text-sm font-semibold">Call</a>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p class="text-slate-600">No products available yet.</p>
+                @endforelse
             </div>
         </div>
     </section>
