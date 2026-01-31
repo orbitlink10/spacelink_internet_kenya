@@ -17,7 +17,7 @@
         @unless($hideSidebar)
             <aside class="w-72 bg-white border-r border-slate-200 shadow-sm hidden md:flex flex-col">
                 <div class="px-6 py-6 border-b border-slate-200">
-                    <a href="{{ route('admin.dashboard') }}" class="text-2xl font-extrabold text-slate-900 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200 rounded">
+                    <a href="{{ url('/') }}" class="text-2xl font-extrabold text-slate-900 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200 rounded">
                         Spacelink Kenya
                     </a>
                 </div>
