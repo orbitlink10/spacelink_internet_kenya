@@ -27,7 +27,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $this->mergeImagesArray($request);
         $data = $this->validateData($request);
         $product = Product::create($data);
 
@@ -47,7 +46,6 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $this->mergeImagesArray($request);
         $data = $this->validateData($request, $product->id);
         $product->update($data);
         $allUrls = $this->collectImageUrls($request, $product);
@@ -80,8 +78,6 @@ class ProductController extends Controller
             'stock_quantity' => 'required|integer|min:0',
             'is_featured' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
-            'images' => 'array',
-            'images.*' => 'url',
             'images_files' => 'array',
             'images_files.*' => 'image|max:2048',
         ], [], [
@@ -116,13 +112,16 @@ class ProductController extends Controller
 
     private function collectImageUrls(Request $request, Product $product): array
     {
-        $urls = $request->input('images', []);
+        $urls = [];
 
         if ($request->hasFile('images_files')) {
             foreach ($request->file('images_files') as $file) {
                 $path = $file->store('products', 'public');
                 $urls[] = Storage::url($path);
             }
+        } else {
+            // If no new uploads, keep existing images
+            $urls = $product->images()->pluck('url')->toArray();
         }
 
         // Ensure stable ordering and unique values

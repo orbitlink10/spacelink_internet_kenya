@@ -54,14 +54,9 @@
         @error('stock_quantity')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
     </div>
     <div>
-        <label class="block text-sm font-semibold text-slate-700">Images (URLs, comma separated)</label>
-        <input name="images_raw" value="{{ old('images_raw', isset($product) ? $product->images->pluck('url')->implode(',') : '') }}" class="w-full rounded border border-slate-200 px-3 py-2">
-        <p class="text-xs text-slate-500">Example: https://example.com/a.jpg, https://example.com/b.jpg</p>
-    </div>
-    <div>
         <label class="block text-sm font-semibold text-slate-700">Upload images</label>
         <input type="file" name="images_files[]" multiple accept="image/*" class="w-full rounded border border-slate-200 px-3 py-2">
-        <p class="text-xs text-slate-500">You can upload multiple JPG/PNG files (max 2MB each). Uploaded images will be added after the URLs above.</p>
+        <p class="text-xs text-slate-500">You can upload multiple JPG/PNG files (max 2MB each).</p>
         @error('images_files.*')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
     </div>
     <div class="flex items-center gap-3">
