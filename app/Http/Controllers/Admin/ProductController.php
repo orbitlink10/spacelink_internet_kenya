@@ -9,6 +9,7 @@ use App\Models\ProductImage;
 use App\Models\AdminAuditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,8 @@ class ProductController extends Controller
         $data = $this->validateData($request);
         $product = Product::create($data);
 
-        $this->syncImages($product, $request->input('images', []));
+        $allUrls = $this->collectImageUrls($request, $product);
+        $this->syncImages($product, $allUrls);
         AdminAuditLog::create(['admin_id' => auth()->id(), 'action' => 'product.create', 'details' => $product->id]);
 
         return redirect()->route('admin.products')->with('success', 'Product created.');
@@ -48,7 +50,8 @@ class ProductController extends Controller
         $this->mergeImagesArray($request);
         $data = $this->validateData($request, $product->id);
         $product->update($data);
-        $this->syncImages($product, $request->input('images', []));
+        $allUrls = $this->collectImageUrls($request, $product);
+        $this->syncImages($product, $allUrls);
         AdminAuditLog::create(['admin_id' => auth()->id(), 'action' => 'product.update', 'details' => $product->id]);
 
         return redirect()->route('admin.products')->with('success', 'Product updated.');
@@ -79,6 +82,8 @@ class ProductController extends Controller
             'is_active' => 'sometimes|boolean',
             'images' => 'array',
             'images.*' => 'url',
+            'images_files' => 'array',
+            'images_files.*' => 'image|max:2048',
         ], [], [
             'slug' => 'slug',
         ]);
@@ -107,5 +112,21 @@ class ProductController extends Controller
             $images = array_filter(array_map('trim', explode(',', $request->input('images_raw'))));
             $request->merge(['images' => $images]);
         }
+    }
+
+    private function collectImageUrls(Request $request, Product $product): array
+    {
+        $urls = $request->input('images', []);
+
+        if ($request->hasFile('images_files')) {
+            foreach ($request->file('images_files') as $file) {
+                $path = $file->store('products', 'public');
+                $urls[] = Storage::url($path);
+            }
+        }
+
+        // Ensure stable ordering and unique values
+        $urls = array_values(array_filter(array_unique($urls)));
+        return $urls;
     }
 }
