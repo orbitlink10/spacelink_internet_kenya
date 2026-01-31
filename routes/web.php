@@ -12,7 +12,27 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 Route::get('/', function () {
-    return view('home');
+    $defaults = [
+        'hero_title' => 'Spacelink Internet Kenya',
+        'hero_subtitle' => 'Reliable internet connectivity, 4G kits, and broadband for homes and businesses.',
+        'cta_text' => 'Get Connected',
+        'cta_link' => '#contact',
+        'highlight_one' => 'Nationwide coverage with rapid deployment',
+        'highlight_two' => 'Human support that actually answers',
+        'highlight_three' => 'Flexible plans for homes and SMEs',
+        'testimonial_blurb' => 'The install was same-day and the speeds stayed fast.',
+        'hero_image' => null,
+        'long_content' => null,
+    ];
+
+    $stored = [];
+    if (Storage::disk('local')->exists('homepage.json')) {
+        $stored = json_decode(Storage::disk('local')->get('homepage.json'), true) ?? [];
+    }
+
+    $content = array_merge($defaults, $stored);
+
+    return view('home', compact('content'));
 });
 
 // Storefront

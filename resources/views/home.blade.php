@@ -41,10 +41,10 @@
         <div class="max-w-6xl mx-auto px-6 py-14 grid lg:grid-cols-2 gap-10">
             <div class="space-y-6">
                 <span class="inline-flex px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-semibold uppercase tracking-[0.22em]">Kenya-wide installs</span>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">Starlink & Spacelink Internet for homes, SMEs, and remote sites</h1>
-                <p class="text-lg text-slate-600">Kits delivered, installed, and optimized by local engineers. Reliable connectivity with responsive support and flexible plans.</p>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">{{ $content['hero_title'] ?? 'Starlink & Spacelink Internet for homes, SMEs, and remote sites' }}</h1>
+                <p class="text-lg text-slate-600">{{ $content['hero_subtitle'] ?? 'Kits delivered, installed, and optimized by local engineers. Reliable connectivity with responsive support and flexible plans.' }}</p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('products.index') }}" class="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md">View plans</a>
+                    <a href="{{ route('products.index') }}" class="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md">{{ $content['cta_text'] ?? 'View plans' }}</a>
                     <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">Chat with an expert</a>
                 </div>
                 <div class="flex flex-wrap gap-6 text-sm text-slate-600">
@@ -57,7 +57,16 @@
                 <div class="absolute -inset-6 bg-gradient-to-br from-orange-100 via-white to-cyan-100 blur-3xl"></div>
                 <div class="relative bg-white border border-slate-200 rounded-3xl shadow-2xl overflow-hidden">
                     <div class="h-full w-full flex items-center justify-center py-12 px-6">
-                        <div class="w-full h-64 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400">Hero image placeholder</div>
+                        @php
+                            $heroPath = $content['hero_image'] ?? null;
+                            $heroLocal = $heroPath ? public_path('storage/'.$heroPath) : null;
+                            $heroUrl = ($heroLocal && file_exists($heroLocal)) ? asset('storage/'.$heroPath) : null;
+                        @endphp
+                        @if($heroUrl)
+                            <img src="{{ $heroUrl }}" alt="Hero image" class="w-full h-64 object-cover rounded-2xl">
+                        @else
+                            <div class="w-full h-64 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400">Hero image placeholder</div>
+                        @endif
                     </div>
                 </div>
             </div>
