@@ -32,7 +32,13 @@
                     <img src="{{ $product->images->first()->url }}" alt="{{ $product->name }}" class="h-40 w-full object-contain mb-3">
                 @endif
                 <h2 class="text-lg font-semibold text-slate-900">{{ $product->name }}</h2>
-                <p class="text-sm text-slate-600 line-clamp-2">{{ $product->description }}</p>
+                @php
+                    $desc = $product->meta_description ?? null;
+                    if (!$desc) {
+                        $desc = Str::limit(strip_tags($product->description), 160);
+                    }
+                @endphp
+                <p class="text-sm text-slate-600 line-clamp-2">{{ $desc }}</p>
                 <p class="mt-2 text-xl font-bold text-slate-900">KES {{ number_format($product->sale_price ?? $product->price, 2) }}</p>
                 @if($product->sale_price)
                     <p class="text-sm text-emerald-600">On sale (was KES {{ number_format($product->price,2) }})</p>
