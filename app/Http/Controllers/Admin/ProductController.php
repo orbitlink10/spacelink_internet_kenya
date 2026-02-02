@@ -10,6 +10,7 @@ use App\Models\AdminAuditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -64,10 +65,15 @@ class ProductController extends Controller
 
     private function validateData(Request $request, ?int $id = null): array
     {
+        // Always derive slug from the name before validation so uniqueness is checked on the final value
+        $request->merge([
+            'slug' => Str::slug($request->input('name', '')),
+        ]);
+
         $data = $request->validate([
             'name' => 'required|string|max:180',
-            'slug' => 'nullable|string|max:180|unique:products,slug,' . $id,
-            'sku' => 'nullable|string|max:80|unique:products,sku,' . $id,
+            'slug' => ['required','string','max:180', Rule::unique('products','slug')->ignore($id)],
+            'sku' => ['nullable','string','max:80', Rule::unique('products','sku')->ignore($id)],
             'description' => 'nullable|string',
             'meta_description' => 'nullable|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -78,13 +84,13 @@ class ProductController extends Controller
             'stock_quantity' => 'required|integer|min:0',
             'is_featured' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
-            'images_files' => 'array',
+            'images_files' => 'nullable|array',
             'images_files.*' => 'image|max:2048',
         ], [], [
             'slug' => 'slug',
         ]);
 
-        // Force slug from product name, regardless of input
+        // Force slug from product name (already merged) and ensure SKU is set
         $data['slug'] = Str::slug($data['name']);
         // Auto-generate SKU if none provided
         $data['sku'] = $data['sku'] ?: strtoupper(Str::slug($data['name'], '-'));
