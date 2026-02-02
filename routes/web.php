@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -189,24 +190,115 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('/admin/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.status');
 
     Route::get('/admin/pages', function () {
-        $posts = [
-            [
+        $pages = [];
+
+        if (Storage::disk('local')->exists('pages.json')) {
+            $pages = json_decode(Storage::disk('local')->get('pages.json'), true) ?? [];
+        }
+
+        // Provide one default entry if storage is empty
+        if (empty($pages)) {
+            $pages[] = [
                 'id' => 1,
                 'title' => 'Kenya Vs Tanzania Vs Uganda Internet',
+                'slug' => 'kenya-vs-tanzania-vs-uganda-internet',
                 'alt' => 'Kenya Vs Tanzania Vs Uganda Internet',
                 'type' => 'Post',
+                'description' => '<p>Compare regional connectivity options and understand coverage differences.</p>',
                 'image' => 'https://upload.wikimedia.org/wikipedia/commons/6/67/Feedbin-Icon-wifi.svg',
-            ],
-        ];
-        return view('admin.pages.index', compact('posts'));
+                'meta_title' => 'Kenya Vs Tanzania Vs Uganda Internet',
+                'meta_description' => 'A quick look at East African connectivity.',
+            ];
+            Storage::disk('local')->put('pages.json', json_encode($pages, JSON_PRETTY_PRINT));
+        }
+
+        // Ensure each page has a slug
+        $pages = collect($pages)->map(function ($page) {
+            if (empty($page['slug'] ?? '')) {
+                $page['slug'] = Str::slug($page['title'] ?? 'page-' . ($page['id'] ?? ''));
+            }
+            return $page;
+        })->values()->all();
+
+        Storage::disk('local')->put('pages.json', json_encode($pages, JSON_PRETTY_PRINT));
+
+        return view('admin.pages.index', ['posts' => $pages]);
     })->name('admin.pages');
 
     Route::get('/admin/pages/create', function () {
         return view('admin.pages.create');
     })->name('admin.pages.create');
 
+    Route::post('/admin/pages', function (Request $request) {
+        $data = $request->validate([
+            'meta_title' => ['required', 'string', 'max:160'],
+            'meta_description' => ['nullable', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:180'],
+            'alt' => ['nullable', 'string', 'max:160'],
+            'type' => ['required', 'in:Post,Page'],
+            'description' => ['required', 'string'],
+            'image' => ['nullable', 'image', 'max:2048'],
+        ]);
+
+        $pages = [];
+        if (Storage::disk('local')->exists('pages.json')) {
+            $pages = json_decode(Storage::disk('local')->get('pages.json'), true) ?? [];
+        }
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('pages', 'public');
+        }
+
+        // Generate unique slug
+        $baseSlug = Str::slug($data['title']);
+        $slug = $baseSlug;
+        $i = 1;
+        $existingSlugs = collect($pages)->pluck('slug')->filter()->all();
+        while (in_array($slug, $existingSlugs)) {
+            $slug = $baseSlug . '-' . $i++;
+        }
+
+        $nextId = empty($pages) ? 1 : (collect($pages)->max('id') + 1);
+
+        $pages[] = array_merge($data, [
+            'id' => $nextId,
+            'slug' => $slug,
+        ]);
+
+        Storage::disk('local')->put('pages.json', json_encode($pages, JSON_PRETTY_PRINT));
+
+        return redirect()->route('admin.pages')->with('success', 'Page saved and ready to preview.');
+    })->name('admin.pages.store');
+
     Route::post('/admin/logout', function (Request $request) {
         $request->session()->forget('admin_auth');
         return redirect()->route('admin.login')->with('success', 'Logged out successfully.');
     })->name('admin.logout');
 });
+
+Route::get('/page/{slug}', function (string $slug) {
+    $pages = [];
+    if (Storage::disk('local')->exists('pages.json')) {
+        $pages = json_decode(Storage::disk('local')->get('pages.json'), true) ?? [];
+    }
+
+    $page = collect($pages)->firstWhere('slug', $slug);
+
+    abort_if(!$page, 404);
+
+    // Resolve image URL
+    $image = $page['image'] ?? null;
+    if ($image) {
+        if (!Str::startsWith($image, ['http://', 'https://', '//'])) {
+            $image = asset('storage/' . $image);
+        }
+    } else {
+        $image = 'https://via.placeholder.com/800x420?text=No+image';
+    }
+
+    return view('pages.show', [
+        'page' => $page,
+        'image' => $image,
+    ]);
+})->name('pages.preview');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Spacelink Internet Kenya - Reliable internet connectivity, 4G kits, and broadband for homes and businesses.">
+    <meta name="description" content="@yield('meta_description', 'Spacelink Internet Kenya - Reliable internet connectivity, 4G kits, and broadband for homes and businesses.')">
     <title>@yield('title', 'Spacelink Internet')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

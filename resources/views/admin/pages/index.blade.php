@@ -44,18 +44,21 @@
                             <td class="px-4 py-3 font-semibold text-slate-800">{{ $post['id'] }}</td>
                             <td class="px-4 py-3">
                                 <div class="w-20 h-20 rounded border border-slate-200 overflow-hidden bg-slate-100 flex items-center justify-center">
-                                    @php
-                                        $img = $post['image'] ?? null;
-                                        $img = $img ?: asset('images/placeholder.png');
-                                    @endphp
-                                    <img src="{{ $img }}" alt="{{ $post['alt'] }}" class="w-full h-full object-contain">
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 font-semibold">{{ $post['title'] }}</td>
-                            <td class="px-4 py-3 text-slate-600">{{ $post['alt'] }}</td>
-                            <td class="px-4 py-3 text-slate-700">{{ $post['type'] }}</td>
-                            <td class="px-4 py-3 space-x-2 whitespace-nowrap">
-                                <a href="{{ $img }}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-cyan-50 text-cyan-700 border border-cyan-200 text-xs font-semibold">👁️ Preview</a>
+                                @php
+                                    $img = $post['image'] ?? null;
+                                    if ($img && !str_starts_with($img, 'http')) {
+                                        $img = asset('storage/' . ltrim($img, '/'));
+                                    }
+                                    $img = $img ?: 'https://via.placeholder.com/120x120?text=No+Image';
+                                @endphp
+                                <img src="{{ $img }}" alt="{{ $post['alt'] ?? $post['title'] }}" class="w-full h-full object-contain">
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 font-semibold">{{ $post['title'] }}</td>
+                        <td class="px-4 py-3 text-slate-600">{{ $post['alt'] }}</td>
+                        <td class="px-4 py-3 text-slate-700">{{ $post['type'] }}</td>
+                        <td class="px-4 py-3 space-x-2 whitespace-nowrap">
+                                <a href="{{ route('pages.preview', $post['slug']) }}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-cyan-50 text-cyan-700 border border-cyan-200 text-xs font-semibold">👁️ Preview</a>
                                 <a class="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold">✏️ Update</a>
                                 <a class="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold">🗑️ Delete</a>
                             </td>
