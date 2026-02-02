@@ -33,7 +33,6 @@
                             ['label' => 'Invoices', 'icon' => '📄', 'href' => '#'],
                             ['label' => 'Requests', 'icon' => '🔔', 'href' => '#'],
                             ['label' => 'Designs', 'icon' => '🧩', 'href' => '#'],
-                            ['label' => 'Pages', 'icon' => '📄', 'href' => route('admin.pages')],
                         ];
                     @endphp
                     @foreach($links as $link)
@@ -50,7 +49,6 @@
                             ['label' => 'Users', 'icon' => '👥', 'href' => route('admin.users')],
                             ['label' => 'Homepage Content', 'icon' => '🧾', 'href' => route('admin.homepage')],
                             ['label' => 'Sliders', 'icon' => '🖼️', 'href' => route('admin.sliders')],
-                            ['label' => 'Pages', 'icon' => '✏️', 'href' => route('admin.pages')],
                             ['label' => 'Services', 'icon' => '🛠️', 'href' => route('admin.services')],
                         ];
                     @endphp
