@@ -277,6 +277,11 @@ Route::middleware('admin.auth')->group(function () {
     })->name('admin.logout');
 });
 
+// Backward compatibility: /page/{slug} should redirect to root-level slug
+Route::get('/page/{slug}', function (string $slug) {
+    return redirect('/' . ltrim($slug, '/'), 301);
+});
+
 Route::get('/{slug}', function (string $slug) {
     $pages = [];
     if (Storage::disk('local')->exists('pages.json')) {
