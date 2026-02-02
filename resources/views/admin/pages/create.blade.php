@@ -20,12 +20,12 @@
             <div class="space-y-2">
                 <label class="text-sm font-semibold text-slate-700" for="meta_title">Meta Title</label>
                 <input type="text" id="meta_title" name="meta_title" value="{{ old('meta_title') }}" class="w-full rounded-lg border border-slate-200 px-4 py-3 focus:ring focus:ring-blue-100 focus:border-blue-400" required maxlength="160">
-                @error('meta_title')<p class="text-sm text-rose-600">{{  }}</p>@enderror
+                @error('meta_title')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
             <div class="space-y-2">
                 <label class="text-sm font-semibold text-slate-700" for="meta_description">Meta Description</label>
                 <input type="text" id="meta_description" name="meta_description" value="{{ old('meta_description') }}" class="w-full rounded-lg border border-slate-200 px-4 py-3 focus:ring focus:ring-blue-100 focus:border-blue-400" maxlength="255">
-                @error('meta_description')<p class="text-sm text-rose-600">{{  }}</p>@enderror
+                @error('meta_description')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
         </div>
 
@@ -33,12 +33,12 @@
             <div class="space-y-2">
                 <label class="text-sm font-semibold text-slate-700" for="title">Page Title</label>
                 <input type="text" id="title" name="title" value="{{ old('title') }}" class="w-full rounded-lg border border-slate-200 px-4 py-3 focus:ring focus:ring-blue-100 focus:border-blue-400" required maxlength="180" placeholder="Compare Starlink with Amazon LEO">
-                @error('title')<p class="text-sm text-rose-600">{{  }}</p>@enderror
+                @error('title')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
             <div class="space-y-2">
                 <label class="text-sm font-semibold text-slate-700" for="alt">Image Alt Text</label>
                 <input type="text" id="alt" name="alt" value="{{ old('alt') }}" class="w-full rounded-lg border border-slate-200 px-4 py-3 focus:ring focus:ring-blue-100 focus:border-blue-400" maxlength="160" placeholder="Hero image description">
-                @error('alt')<p class="text-sm text-rose-600">{{  }}</p>@enderror
+                @error('alt')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
         </div>
 
@@ -49,20 +49,20 @@
                     <option value="Post" {{ old('type') === 'Post' ? 'selected' : '' }}>Post</option>
                     <option value="Page" {{ old('type') === 'Page' ? 'selected' : '' }}>Page</option>
                 </select>
-                @error('type')<p class="text-sm text-rose-600">{{  }}</p>@enderror
+                @error('type')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
             <div class="space-y-2">
                 <label class="text-sm font-semibold text-slate-700" for="image">Hero Image</label>
                 <input type="file" id="image" name="image" accept="image/*" class="w-full rounded-lg border border-slate-200 px-4 py-3 bg-white focus:ring focus:ring-blue-100 focus:border-blue-400">
                 <p class="text-xs text-slate-500">JPG/PNG up to 2MB.</p>
-                @error('image')<p class="text-sm text-rose-600">{{  }}</p>@enderror
+                @error('image')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
         </div>
 
         <div class="space-y-2">
             <label class="text-sm font-semibold text-slate-700" for="description">Page Description</label>
             <textarea id="description" name="description" rows="12" class="w-full rounded-lg border border-slate-200 px-4 py-3 focus:ring focus:ring-blue-100 focus:border-blue-400">{{ old('description') }}</textarea>
-            @error('description')<p class="text-sm text-rose-600">{{  }}</p>@enderror
+            @error('description')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
         </div>
 
         <div class="flex items-center gap-3">
