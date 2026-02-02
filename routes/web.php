@@ -277,7 +277,7 @@ Route::middleware('admin.auth')->group(function () {
     })->name('admin.logout');
 });
 
-Route::get('/page/{slug}', function (string $slug) {
+Route::get('/{slug}', function (string $slug) {
     $pages = [];
     if (Storage::disk('local')->exists('pages.json')) {
         $pages = json_decode(Storage::disk('local')->get('pages.json'), true) ?? [];
@@ -301,4 +301,6 @@ Route::get('/page/{slug}', function (string $slug) {
         'page' => $page,
         'image' => $image,
     ]);
-})->name('pages.preview');
+})
+    ->where('slug', '^(?!admin|products|cart|checkout|account|payments|storage|login|register|password|logout).+')
+    ->name('pages.preview');
