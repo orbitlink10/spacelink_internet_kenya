@@ -6,7 +6,7 @@
 <div class="max-w-6xl mx-auto px-6 py-10 space-y-10">
     {{-- Breadcrumb --}}
     <div class="text-sm text-slate-500 flex items-center gap-2">
-        <a href="{{ route('products.index') }}" class="hover:text-blue-600">Home</a>
+        <a href="{{ url('/') }}" class="hover:text-blue-600">Home</a>
         <span>/</span>
         @if($product->category)
             <a href="{{ route('products.index', ['category' => $product->category->slug]) }}" class="hover:text-blue-600">{{ $product->category->name }}</a>
