@@ -19,7 +19,6 @@
             <thead class="bg-slate-50">
                 <tr>
                     <th class="text-left px-4 py-3 font-semibold text-slate-700">Name</th>
-                    <th class="text-left px-4 py-3 font-semibold text-slate-700">SKU</th>
                     <th class="text-left px-4 py-3 font-semibold text-slate-700">Price</th>
                     <th class="text-left px-4 py-3 font-semibold text-slate-700">Stock</th>
                     <th class="text-left px-4 py-3 font-semibold text-slate-700">Status</th>
@@ -30,7 +29,6 @@
                 @foreach($products as $product)
                     <tr class="border-t border-slate-100">
                         <td class="px-4 py-3 font-semibold text-slate-900">{{ $product->name }}</td>
-                        <td class="px-4 py-3 text-slate-600">{{ $product->sku }}</td>
                         <td class="px-4 py-3 text-slate-600">KES {{ number_format($product->sale_price ?? $product->price, 2) }}</td>
                         <td class="px-4 py-3 text-slate-600">{{ $product->stock_quantity }}</td>
                         <td class="px-4 py-3">
