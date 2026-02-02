@@ -84,8 +84,8 @@ class ProductController extends Controller
             'slug' => 'slug',
         ]);
 
-        // Ensure slug is always set server-side
-        $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
+        // Force slug from product name, regardless of input
+        $data['slug'] = Str::slug($data['name']);
 
         return $data;
     }
