@@ -5,6 +5,11 @@
         @error('name')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
     </div>
     <div>
+        <label class="block text-sm font-semibold text-slate-700">SKU</label>
+        <input id="product_sku" data-product-sku name="sku" value="{{ old('sku', $product->sku ?? '') }}" class="w-full rounded border border-slate-200 px-3 py-2">
+        @error('sku')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+    </div>
+    <div>
         <label class="block text-sm font-semibold text-slate-700">Slug</label>
         <input id="product_slug" data-product-slug name="slug" value="{{ old('slug', $product->slug ?? '') }}" class="w-full rounded border border-slate-200 px-3 py-2">
         @error('slug')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
@@ -91,11 +96,14 @@
         (() => {
             const nameInput = document.querySelector('[data-product-name]');
             const slugInput = document.querySelector('[data-product-slug]');
-            if (!nameInput || !slugInput) return;
+            const skuInput  = document.querySelector('[data-product-sku]');
+            if (!nameInput || !slugInput || !skuInput) return;
 
             let slugDirty = !!slugInput.value;
+            let skuDirty  = !!skuInput.value;
 
             slugInput.addEventListener('input', () => slugDirty = true);
+            skuInput.addEventListener('input', () => skuDirty = true);
 
             const slugify = (text) =>
                 text.toString().toLowerCase()
@@ -107,6 +115,10 @@
             nameInput.addEventListener('input', () => {
                 const base = slugify(nameInput.value);
                 if (!slugDirty) slugInput.value = base;
+                if (!skuDirty && base) {
+                    const code = base.replace(/-/g, '').toUpperCase();
+                    skuInput.value = code.substring(0, 10) || '';
+                }
             });
         })();
     </script>

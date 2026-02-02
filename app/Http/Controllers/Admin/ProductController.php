@@ -73,6 +73,7 @@ class ProductController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:180',
             'slug' => ['required','string','max:180', Rule::unique('products','slug')->ignore($id)],
+            'sku' => ['nullable','string','max:80', Rule::unique('products','sku')->ignore($id)],
             'description' => 'nullable|string',
             'meta_description' => 'nullable|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -91,6 +92,8 @@ class ProductController extends Controller
 
         // Force slug from product name (already merged)
         $data['slug'] = Str::slug($data['name']);
+        // Auto-generate SKU if none provided
+        $data['sku'] = $data['sku'] ?? strtoupper(Str::slug($data['name'], '-'));
 
         return $data;
     }
