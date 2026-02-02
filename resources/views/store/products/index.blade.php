@@ -28,8 +28,17 @@
     <div class="grid gap-6 md:grid-cols-3">
         @forelse($products as $product)
             <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex flex-col">
-                @if($product->images->first())
-                    <img src="{{ $product->images->first()->url }}" alt="{{ $product->name }}" class="h-40 w-full object-contain mb-3">
+                @php
+                    $firstImage = $product->images->first();
+                    $imgUrl = $firstImage?->url;
+                    if ($imgUrl && !Str::startsWith($imgUrl, ['http://', 'https://', '//'])) {
+                        $imgUrl = asset(ltrim($imgUrl, '/'));
+                    }
+                @endphp
+                @if($imgUrl)
+                    <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="h-40 w-full object-contain mb-3">
+                @else
+                    <div class="h-40 w-full bg-slate-100 text-slate-400 text-sm flex items-center justify-center mb-3 rounded">No image</div>
                 @endif
                 <h2 class="text-lg font-semibold text-slate-900">{{ $product->name }}</h2>
                 @php
