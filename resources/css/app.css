@@ -54,9 +54,27 @@
     text-decoration: none;
 }
 .btn-theme:hover {
-    filter: brightness(0.95);
-    box-shadow: 0 14px 26px rgba(255, 138, 31, 0.3);
+    filter: brightness(0.97);
+    box-shadow: 0 14px 26px rgba(255, 138, 31, 0.32);
 }
 .btn-theme:active {
     transform: translateY(1px);
+}
+
+/* Force theme on generic buttons/links we can safely target */
+.btn-theme,
+button.btn-theme,
+a.btn-theme,
+button[type=submit].btn-theme {
+    background: linear-gradient(180deg, #ff9b34 0%, #ff8a1f 100%) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* A few fallbacks where buttons still use default classes */
+button,
+.btn,
+.btn-primary,
+.btn-theme-force {
+    font-family: inherit;
 }

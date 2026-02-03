@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#f5f7fb] text-slate-800 antialiased" style="font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+<body class="bg-[#f5f7fb] text-slate-800 antialiased theme-body" style="font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
     <div class="min-h-screen flex flex-col">
         @yield('content')
         <footer class="mt-auto bg-white border-t border-slate-200">
