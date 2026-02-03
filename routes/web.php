@@ -24,6 +24,8 @@ Route::get('/', function () {
         'testimonial_blurb' => 'The install was same-day and the speeds stayed fast.',
         'hero_image' => null,
         'long_content' => null,
+        'contact_phone' => '+254 741 446 150',
+        'contact_email' => 'info@spacelinkkenya.co.ke',
         'services' => [
             ['title' => 'Home & SME', 'copy' => 'Starlink, 4G, and broadband with smart Wi‑Fi design.'],
             ['title' => 'Enterprise', 'copy' => 'Dedicated fibre, SD‑WAN, QoS, and proactive monitoring.'],
@@ -158,6 +160,8 @@ Route::middleware('admin.auth')->group(function () {
             'testimonial_blurb' => ['required', 'string', 'max:220'],
             'hero_image' => ['nullable', 'image', 'max:2048'],
             'long_content' => ['nullable', 'string'],
+            'contact_phone' => ['required', 'string', 'max:40'],
+            'contact_email' => ['required', 'email', 'max:120'],
             'services' => ['nullable', 'array', 'max:12'],
             'services.*.title' => ['nullable', 'string', 'max:160'],
             'services.*.copy' => ['nullable', 'string', 'max:400'],

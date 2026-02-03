@@ -97,6 +97,19 @@
                 @error('testimonial_blurb')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
 
+            <div class="grid gap-6 lg:grid-cols-2">
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-700" for="contact_phone">Contact phone</label>
+                    <input id="contact_phone" name="contact_phone" type="text" value="{{ old('contact_phone', $content['contact_phone'] ?? '+254 741 446 150') }}" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-400 focus:ring focus:ring-blue-100" required maxlength="40">
+                    @error('contact_phone')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+                </div>
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-700" for="contact_email">Contact email</label>
+                    <input id="contact_email" name="contact_email" type="email" value="{{ old('contact_email', $content['contact_email'] ?? 'info@spacelinkkenya.co.ke') }}" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-400 focus:ring focus:ring-blue-100" required maxlength="120">
+                    @error('contact_email')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+                </div>
+            </div>
+
             <div class="space-y-3">
                 <label class="block text-sm font-semibold text-slate-700" for="long_content">Home page content (rich text)</label>
                 <textarea id="long_content" name="long_content" rows="10" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-blue-400 focus:ring focus:ring-blue-100">{{ old('long_content', $content['long_content']) }}</textarea>

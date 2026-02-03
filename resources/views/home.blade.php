@@ -11,13 +11,13 @@
         <!-- Top contact strip -->
         <div class="bg-slate-900 text-slate-100 text-sm">
             <div class="max-w-6xl mx-auto px-6 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                <span class="font-semibold">Need help? +254 741 446 150</span>
+                <span class="font-semibold">Need help? {{ $content['contact_phone'] ?? '+254 741 446 150' }}</span>
                 <div class="flex items-center gap-4">
-                    <a href="mailto:info@spacelinkkenya.co.ke" class="hover:text-white/80">info@spacelinkkenya.co.ke</a>
-                <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="hover:text-white/80">WhatsApp</a>
+                    <a href="mailto:{{ $content['contact_email'] ?? 'info@spacelinkkenya.co.ke' }}" class="hover:text-white/80">{{ $content['contact_email'] ?? 'info@spacelinkkenya.co.ke' }}</a>
+                    <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="hover:text-white/80">WhatsApp</a>
+                </div>
             </div>
         </div>
-    </div>
 
     <!-- Main nav -->
     <header class="bg-white border-b border-slate-200/80 shadow-sm">
