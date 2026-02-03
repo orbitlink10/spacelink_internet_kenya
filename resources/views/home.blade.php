@@ -140,8 +140,8 @@
                         @endphp
                         <p class="text-sm text-slate-600 mt-2">{{ $desc }}</p>
                         <div class="mt-4 flex gap-2">
-                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 text-center btn-theme text-sm font-semibold">View</a>
-                            <a href="tel:+254774849471" class="flex-1 text-center btn-theme text-sm font-semibold">Call</a>
+                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold">View</a>
+                            <a href="tel:+254774849471" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold">Call</a>
                         </div>
                     </div>
                 @empty
