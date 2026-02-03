@@ -6,7 +6,7 @@
         @php
             $btnOrangeStyle = 'background:#ff951e;color:#fff;border:none;box-shadow:0 10px 22px rgba(255,149,30,0.28);padding:12px 18px;border-radius:14px;text-decoration:none;';
             $btnBlueOutline = 'border:2px solid #1f7aff;color:#1f7aff;background:#fff;padding:12px 18px;border-radius:14px;text-decoration:none;box-shadow:0 6px 16px rgba(31,122,255,0.16);';
-            $waNumber = preg_replace("/\\D+/", '', $content['contact_whatsapp'] ?? '254774849471');
+            $waNumber = preg_replace("/\\D+/", '', ($content['contact_whatsapp'] ?? $homeContent['contact_whatsapp'] ?? '254774849471'));
             $waLink = 'https://wa.me/'.$waNumber;
         @endphp
 

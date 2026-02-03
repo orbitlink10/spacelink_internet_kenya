@@ -27,18 +27,14 @@
                 </div>
                 <div>
                     <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">Contact</p>
-                    <p class="mt-3 text-sm">Phone: <a class="text-cyan-700 hover:text-cyan-900 font-semibold" href="tel:+254774849471">+254 774 849 471</a></p>
-                    <p class="text-sm">Email: <a class="text-cyan-700 hover:text-cyan-900 font-semibold" href="mailto:info@spacelinkkenya.co.ke">info@spacelinkkenya.co.ke</a></p>
                     @php
-                        $waNumber = '254774849471';
-                        if (Illuminate\Support\Facades\Storage::disk('local')->exists('homepage.json')) {
-                            $cfg = json_decode(Illuminate\Support\Facades\Storage::disk('local')->get('homepage.json'), true) ?? [];
-                            if (!empty($cfg['contact_whatsapp'])) {
-                                $waNumber = preg_replace('/\D+/', '', $cfg['contact_whatsapp']);
-                            }
-                        }
+                        $contactPhone = $homeContent['contact_phone'] ?? '+254 774 849 471';
+                        $contactEmail = $homeContent['contact_email'] ?? 'info@spacelinkkenya.co.ke';
+                        $waNumber = $homeContent['contact_whatsapp'] ?? '254774849471';
                         $waLink = 'https://wa.me/'.$waNumber;
                     @endphp
+                    <p class="mt-3 text-sm">Phone: <a class="text-cyan-700 hover:text-cyan-900 font-semibold" href="tel:{{ $contactPhone }}">{{ $contactPhone }}</a></p>
+                    <p class="text-sm">Email: <a class="text-cyan-700 hover:text-cyan-900 font-semibold" href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a></p>
                     <p class="text-sm">WhatsApp: <a class="text-cyan-700 hover:text-cyan-900 font-semibold" href="{{ $waLink }}" target="_blank" rel="noreferrer">Chat now</a></p>
                 </div>
                 <div>
