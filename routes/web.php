@@ -26,6 +26,7 @@ Route::get('/', function () {
         'long_content' => null,
         'contact_phone' => '+254 741 446 150',
         'contact_email' => 'info@spacelinkkenya.co.ke',
+        'contact_whatsapp' => '254774849471',
         'services' => [
             ['title' => 'Home & SME', 'copy' => 'Starlink, 4G, and broadband with smart Wi‑Fi design.'],
             ['title' => 'Enterprise', 'copy' => 'Dedicated fibre, SD‑WAN, QoS, and proactive monitoring.'],
@@ -162,6 +163,7 @@ Route::middleware('admin.auth')->group(function () {
             'long_content' => ['nullable', 'string'],
             'contact_phone' => ['required', 'string', 'max:40'],
             'contact_email' => ['required', 'email', 'max:120'],
+            'contact_whatsapp' => ['required', 'string', 'max:40'],
             'services' => ['nullable', 'array', 'max:12'],
             'services.*.title' => ['nullable', 'string', 'max:160'],
             'services.*.copy' => ['nullable', 'string', 'max:400'],
@@ -219,6 +221,10 @@ Route::middleware('admin.auth')->group(function () {
             $cleanTestimonials = $existing['testimonials'] ?? $defaults['testimonials'];
         }
         $data['testimonials'] = array_values($cleanTestimonials);
+
+        // Normalize WhatsApp number to digits only for wa.me links
+        $wa = preg_replace('/\D+/', '', $data['contact_whatsapp'] ?? '');
+        $data['contact_whatsapp'] = $wa ?: preg_replace('/\D+/', '', $defaults['contact_whatsapp']);
 
         Storage::disk('local')->put('homepage.json', json_encode($data, JSON_PRETTY_PRINT));
 

@@ -5,7 +5,9 @@
 @section('content')
         @php
             $btnOrangeStyle = 'background:#ff951e;color:#fff;border:none;box-shadow:0 10px 22px rgba(255,149,30,0.28);padding:12px 18px;border-radius:14px;text-decoration:none;';
-            $btnBlueOutline = 'border:2px solid #0f3b66;color:#0f3b66;background:#fff;padding:12px 18px;border-radius:14px;text-decoration:none;box-shadow:0 6px 16px rgba(15,59,102,0.12);';
+            $btnBlueOutline = 'border:2px solid #1f7aff;color:#1f7aff;background:#fff;padding:12px 18px;border-radius:14px;text-decoration:none;box-shadow:0 6px 16px rgba(31,122,255,0.16);';
+            $waNumber = preg_replace("/\\D+/", '', $content['contact_whatsapp'] ?? '254774849471');
+            $waLink = 'https://wa.me/'.$waNumber;
         @endphp
 
         <!-- Top contact strip -->
@@ -50,7 +52,7 @@
                 <p class="text-lg text-slate-600">{{ $content['hero_subtitle'] ?? 'Kits delivered, installed, and optimized by local engineers. Reliable connectivity with responsive support and flexible plans.' }}</p>
                 <div class="flex flex-wrap gap-3">
                     <a href="{{ route('products.index') }}" class="btn-orange" style="{{ $btnOrangeStyle }}">{{ $content['cta_text'] ?? 'View plans' }}</a>
-                    <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="btn-outline-blue" style="{{ $btnBlueOutline }}">Chat with an expert</a>
+                    <a href="{{ $waLink }}" target="_blank" rel="noreferrer" class="btn-outline-blue" style="{{ $btnBlueOutline }}">Chat with an expert</a>
                 </div>
                 <div class="flex flex-wrap gap-6 text-sm text-slate-600">
                     <div><span class="font-semibold text-slate-900">2000+ </span>Installs delivered</div>
@@ -146,7 +148,7 @@
                         <p class="text-sm text-slate-600 mt-2">{{ $desc }}</p>
                         <div class="mt-4 flex gap-2">
                             <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-orange text-sm font-semibold justify-center" style="{{ $btnOrangeStyle }}">View</a>
-                            <a href="tel:+254774849471" class="flex-1 btn-outline-blue text-sm font-semibold justify-center" style="{{ $btnBlueOutline }}">Call</a>
+                            <a href="{{ $waLink }}" class="flex-1 btn-outline-blue text-sm font-semibold justify-center" style="{{ $btnBlueOutline }}">Call</a>
                         </div>
                     </div>
                 @empty
