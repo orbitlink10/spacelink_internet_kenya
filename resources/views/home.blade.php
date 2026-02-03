@@ -232,7 +232,6 @@
                 <div class="h-1.5 bg-gradient-to-r from-orange-400 via-cyan-400 to-blue-500"></div>
                 <div class="p-8 md:p-10 lg:p-12 space-y-6">
                     <div class="space-y-3">
-                        <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Home Page Content</p>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">Starlink Kenya: A Comprehensive Guide to Satellite Internet Connectivity</h2>
                         <p class="text-lg text-slate-600 leading-relaxed">Explore how low‑earth orbit satellites are transforming access across Kenya. Understand speeds, installation, pricing, benefits, and how Starlink compares to fibre, 4G/5G, and microwave links.</p>
                     </div>
