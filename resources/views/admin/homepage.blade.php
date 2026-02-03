@@ -143,8 +143,8 @@
                             ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
                         ];
                     }
-                    // pad to 12 slots
-                    while (count($services) < 12) {
+                    // pad to 6 slots
+                    while (count($services) < 6) {
                         $services[] = ['title' => '', 'copy' => ''];
                     }
                 @endphp

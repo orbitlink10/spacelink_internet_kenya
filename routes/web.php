@@ -164,7 +164,7 @@ Route::middleware('admin.auth')->group(function () {
             'contact_phone' => ['required', 'string', 'max:40'],
             'contact_email' => ['required', 'email', 'max:120'],
             'contact_whatsapp' => ['required', 'string', 'max:40'],
-            'services' => ['nullable', 'array', 'max:12'],
+            'services' => ['nullable', 'array', 'max:6'],
             'services.*.title' => ['nullable', 'string', 'max:160'],
             'services.*.copy' => ['nullable', 'string', 'max:400'],
             'testimonials' => ['nullable', 'array', 'max:8'],
