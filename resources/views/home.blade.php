@@ -3,12 +3,17 @@
 @section('title', 'Spacelink Internet Kenya | High-Speed Satellite & Broadband')
 
 @section('content')
-    <!-- Top contact strip -->
-    <div class="bg-slate-900 text-slate-100 text-sm">
-        <div class="max-w-6xl mx-auto px-6 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-            <span class="font-semibold">Need help? +254 741 446 150</span>
-            <div class="flex items-center gap-4">
-                <a href="mailto:info@spacelinkkenya.co.ke" class="hover:text-white/80">info@spacelinkkenya.co.ke</a>
+        @php
+            $btnOrangeStyle = 'background:#ff951e;color:#fff;border:none;box-shadow:0 10px 22px rgba(255,149,30,0.28);padding:12px 18px;border-radius:14px;text-decoration:none;';
+            $btnBlueOutline = 'border:2px solid #0f3b66;color:#0f3b66;background:#fff;padding:12px 18px;border-radius:14px;text-decoration:none;box-shadow:0 6px 16px rgba(15,59,102,0.12);';
+        @endphp
+
+        <!-- Top contact strip -->
+        <div class="bg-slate-900 text-slate-100 text-sm">
+            <div class="max-w-6xl mx-auto px-6 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                <span class="font-semibold">Need help? +254 741 446 150</span>
+                <div class="flex items-center gap-4">
+                    <a href="mailto:info@spacelinkkenya.co.ke" class="hover:text-white/80">info@spacelinkkenya.co.ke</a>
                 <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="hover:text-white/80">WhatsApp</a>
             </div>
         </div>
@@ -44,8 +49,8 @@
                 <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">{{ $content['hero_title'] ?? 'Starlink & Spacelink Internet for homes, SMEs, and remote sites' }}</h1>
                 <p class="text-lg text-slate-600">{{ $content['hero_subtitle'] ?? 'Kits delivered, installed, and optimized by local engineers. Reliable connectivity with responsive support and flexible plans.' }}</p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('products.index') }}" class="btn-orange">{{ $content['cta_text'] ?? 'View plans' }}</a>
-                    <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="btn-outline-blue">Chat with an expert</a>
+                    <a href="{{ route('products.index') }}" class="btn-orange" style="{{ $btnOrangeStyle }}">{{ $content['cta_text'] ?? 'View plans' }}</a>
+                    <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="btn-outline-blue" style="{{ $btnBlueOutline }}">Chat with an expert</a>
                 </div>
                 <div class="flex flex-wrap gap-6 text-sm text-slate-600">
                     <div><span class="font-semibold text-slate-900">2000+ </span>Installs delivered</div>
@@ -140,8 +145,8 @@
                         @endphp
                         <p class="text-sm text-slate-600 mt-2">{{ $desc }}</p>
                         <div class="mt-4 flex gap-2">
-                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-orange text-sm font-semibold justify-center">View</a>
-                            <a href="tel:+254774849471" class="flex-1 btn-outline-blue text-sm font-semibold justify-center">Call</a>
+                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-orange text-sm font-semibold justify-center" style="{{ $btnOrangeStyle }}">View</a>
+                            <a href="tel:+254774849471" class="flex-1 btn-outline-blue text-sm font-semibold justify-center" style="{{ $btnBlueOutline }}">Call</a>
                         </div>
                     </div>
                 @empty
@@ -244,8 +249,8 @@
                         </div>
                     </div>
                     <div class="pt-4 flex flex-wrap gap-3">
-                        <a href="#contact" class="btn-orange">Talk to our engineers</a>
-                        <a href="{{ route('products.index') }}" class="btn-outline-blue">View plans</a>
+                        <a href="#contact" class="btn-orange" style="{{ $btnOrangeStyle }}">Talk to our engineers</a>
+                        <a href="{{ route('products.index') }}" class="btn-outline-blue" style="{{ $btnBlueOutline }}">View plans</a>
                     </div>
                 </div>
             </div>

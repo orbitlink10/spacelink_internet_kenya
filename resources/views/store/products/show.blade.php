@@ -60,9 +60,12 @@
             <form method="POST" action="{{ route('cart.add', $product->id) }}" class="space-y-3">
                 @csrf
                 <label class="block text-sm font-semibold text-slate-700" for="quantity">Quantity</label>
+                        @php
+                            $btnOrangeStyle = 'background:#ff951e;color:#fff;border:none;box-shadow:0 10px 22px rgba(255,149,30,0.28);padding:12px 18px;border-radius:14px;text-decoration:none;';
+                        @endphp
                         <div class="flex items-center gap-3">
                             <input type="number" id="quantity" name="quantity" value="1" min="1" class="w-24 rounded border border-slate-200 px-3 py-2">
-                            <button class="btn-orange px-5 py-3 disabled:opacity-60" {{ $product->inStock() ? '' : 'disabled' }}>
+                            <button class="btn-orange px-5 py-3 disabled:opacity-60" style="{{ $btnOrangeStyle }}" {{ $product->inStock() ? '' : 'disabled' }}>
                                 {{ $product->inStock() ? 'Add to cart' : 'Out of stock' }}
                             </button>
                         </div>

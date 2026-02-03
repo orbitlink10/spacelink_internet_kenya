@@ -22,7 +22,11 @@
         <label class="flex items-center gap-2 text-sm">
             <input type="checkbox" name="in_stock" value="1" @checked(request('in_stock'))> In stock
         </label>
-        <button class="md:col-span-2 px-4 py-2 btn-orange">Filter</button>
+        @php
+            $btnOrangeStyle = 'background:#ff951e;color:#fff;border:none;box-shadow:0 10px 22px rgba(255,149,30,0.28);padding:12px 18px;border-radius:14px;text-decoration:none;';
+            $btnBlueOutline = 'border:2px solid #0f3b66;color:#0f3b66;background:#fff;padding:12px 18px;border-radius:14px;text-decoration:none;box-shadow:0 6px 16px rgba(15,59,102,0.12);';
+        @endphp
+        <button class="md:col-span-2 px-4 py-2 btn-orange" style="{{ $btnOrangeStyle }}">Filter</button>
     </form>
 
     <div class="grid gap-6 md:grid-cols-3">
@@ -54,12 +58,12 @@
                 @endif
                 <p class="text-sm mt-1 {{ $product->inStock() ? 'text-emerald-600' : 'text-rose-600' }}">{{ $product->inStock() ? 'In stock' : 'Out of stock' }}</p>
                         <div class="mt-auto flex gap-2 pt-3">
-                            <a href="{{ route('products.show', $product->slug) }}" class="px-3 py-2 btn-orange">View</a>
+                            <a href="{{ route('products.show', $product->slug) }}" class="px-3 py-2 btn-orange" style="{{ $btnOrangeStyle }}">View</a>
                             @if($product->inStock())
                                 <form method="POST" action="{{ route('cart.add', $product->id) }}" class="flex-1 text-right">
                                     @csrf
                                     <input type="hidden" name="quantity" value="1">
-                                    <button class="px-3 py-2 btn-orange w-full">Add to cart</button>
+                                    <button class="px-3 py-2 btn-orange w-full" style="{{ $btnOrangeStyle }}">Add to cart</button>
                                 </form>
                             @endif
                         </div>
