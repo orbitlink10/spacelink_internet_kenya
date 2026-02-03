@@ -103,7 +103,7 @@
                                     }
                                 @endphp
                                 @if(!empty($img))
-                                    <div class="h-20 w-full mb-3 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                                    <div class="h-28 w-full mb-3 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
                                         <img src="{{ $img }}" alt="{{ $item['title'] ?? 'testimonial' }}" class="h-full w-full object-cover">
                                     </div>
                                 @endif
