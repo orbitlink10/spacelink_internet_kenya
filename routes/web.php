@@ -36,10 +36,10 @@ Route::get('/', function () {
             ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
         ],
         'testimonials' => [
-            ['title' => 'Nationwide ISP Network', 'copy' => 'Core/edge upgrades across Nairobi, Mombasa, Kisumu, and Eldoret with 99.95% uptime targets.'],
-            ['title' => 'Healthcare Campus Wi‑Fi', 'copy' => 'Multi-building secure Wi‑Fi with guest/staff segmentation and SD‑WAN failover.'],
-            ['title' => 'Construction & Remote Sites', 'copy' => 'Starlink + 4G hybrid links with portable power for remote build sites and camps.'],
-            ['title' => 'Events & Broadcasts', 'copy' => 'Pop-up high-bandwidth connectivity for live events, TV uplinks, and exhibitions.'],
+            ['title' => 'Nationwide ISP Network', 'copy' => 'Core/edge upgrades across Nairobi, Mombasa, Kisumu, and Eldoret with 99.95% uptime targets.', 'image' => null],
+            ['title' => 'Healthcare Campus Wi‑Fi', 'copy' => 'Multi-building secure Wi‑Fi with guest/staff segmentation and SD‑WAN failover.', 'image' => null],
+            ['title' => 'Construction & Remote Sites', 'copy' => 'Starlink + 4G hybrid links with portable power for remote build sites and camps.', 'image' => null],
+            ['title' => 'Events & Broadcasts', 'copy' => 'Pop-up high-bandwidth connectivity for live events, TV uplinks, and exhibitions.', 'image' => null],
         ],
     ];
 
@@ -170,6 +170,7 @@ Route::middleware('admin.auth')->group(function () {
             'testimonials' => ['nullable', 'array', 'max:8'],
             'testimonials.*.title' => ['nullable', 'string', 'max:160'],
             'testimonials.*.copy' => ['nullable', 'string', 'max:400'],
+            'testimonials.*.image' => ['nullable', 'image', 'max:2048'],
         ]);
 
         $existing = [];
@@ -205,14 +206,20 @@ Route::middleware('admin.auth')->group(function () {
 
         // Testimonials
         $cleanTestimonials = [];
+        $testimonialFiles = $request->file('testimonials', []);
         if (!empty($data['testimonials'] ?? [])) {
-            foreach ($data['testimonials'] as $row) {
+            foreach ($data['testimonials'] as $idx => $row) {
                 $title = trim($row['title'] ?? '');
                 $copy = trim($row['copy'] ?? '');
-                if ($title !== '' || $copy !== '') {
+                $imagePath = $existing['testimonials'][$idx]['image'] ?? null;
+                if (!empty($testimonialFiles[$idx]['image'] ?? null)) {
+                    $imagePath = $testimonialFiles[$idx]['image']->store('testimonials', 'public');
+                }
+                if ($title !== '' || $copy !== '' || $imagePath) {
                     $cleanTestimonials[] = [
                         'title' => $title,
                         'copy' => $copy,
+                        'image' => $imagePath,
                     ];
                 }
             }

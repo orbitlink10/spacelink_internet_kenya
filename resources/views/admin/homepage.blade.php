@@ -184,14 +184,14 @@
                     $testimonials = old('testimonials', $content['testimonials'] ?? []);
                     if (empty($testimonials)) {
                         $testimonials = [
-                            ['title' => 'Nationwide ISP Network', 'copy' => 'Core/edge upgrades across Nairobi, Mombasa, Kisumu, Eldoret with 99.95% uptime targets.'],
-                            ['title' => 'Healthcare Campus Wi‑Fi', 'copy' => 'Secure staff/guest SSIDs, SD‑WAN failover, and proactive monitoring for medical campuses.'],
-                            ['title' => 'Remote Sites & Camps', 'copy' => 'Starlink + 4G hybrid links with portable power for construction and exploration sites.'],
-                            ['title' => 'Events & Broadcasts', 'copy' => 'High-bandwidth pop-up internet for live events, TV uplinks, and exhibitions.'],
+                            ['title' => 'Nationwide ISP Network', 'copy' => 'Core/edge upgrades across Nairobi, Mombasa, Kisumu, Eldoret with 99.95% uptime targets.', 'image' => null],
+                            ['title' => 'Healthcare Campus Wi‑Fi', 'copy' => 'Secure staff/guest SSIDs, SD‑WAN failover, and proactive monitoring for medical campuses.', 'image' => null],
+                            ['title' => 'Remote Sites & Camps', 'copy' => 'Starlink + 4G hybrid links with portable power for construction and exploration sites.', 'image' => null],
+                            ['title' => 'Events & Broadcasts', 'copy' => 'High-bandwidth pop-up internet for live events, TV uplinks, and exhibitions.', 'image' => null],
                         ];
                     }
                     while (count($testimonials) < 8) {
-                        $testimonials[] = ['title' => '', 'copy' => ''];
+                        $testimonials[] = ['title' => '', 'copy' => '', 'image' => null];
                     }
                 @endphp
 
@@ -206,6 +206,24 @@
                             <div class="space-y-2">
                                 <label class="text-xs font-semibold text-slate-700">Copy</label>
                                 <textarea name="testimonials[{{ $i }}][copy]" rows="4" class="testimonial-copy w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">{{ $item['copy'] ?? '' }}</textarea>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-slate-700">Image (optional)</label>
+                                @php
+                                    $img = $item['image'] ?? null;
+                                    $imgUrl = null;
+                                    if ($img && !Str::startsWith($img, ['http://','https://'])) {
+                                        $imgUrl = asset('storage/'.$img);
+                                    } elseif ($img) {
+                                        $imgUrl = $img;
+                                    }
+                                @endphp
+                                @if($imgUrl)
+                                    <div class="h-20 w-full rounded-lg border border-slate-200 bg-white overflow-hidden">
+                                        <img src="{{ $imgUrl }}" alt="testimonial image" class="h-full w-full object-cover">
+                                    </div>
+                                @endif
+                                <input type="file" name="testimonials[{{ $i }}][image]" accept="image/*" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">
                             </div>
                         </div>
                     @endforeach

@@ -95,6 +95,17 @@
                     <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                         @foreach($testimonials as $item)
                             <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                                @php
+                                    $img = $item['image'] ?? null;
+                                    if ($img && !Str::startsWith($img, ['http://','https://'])) {
+                                        $img = asset('storage/'.$img);
+                                    }
+                                @endphp
+                                @if(!empty($img))
+                                    <div class="h-28 w-full mb-3 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                                        <img src="{{ $img }}" alt="{{ $item['title'] ?? 'testimonial' }}" class="h-full w-full object-cover">
+                                    </div>
+                                @endif
                                 <h3 class="font-semibold text-slate-900">{{ $item['title'] }}</h3>
                                 <div class="rich-copy text-slate-700 mt-2">
                                     {!! $item['copy'] !!}
