@@ -142,7 +142,7 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="text-xs font-semibold text-slate-700">Copy</label>
-                                <textarea name="services[{{ $i }}][copy]" rows="3" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">{{ $service['copy'] ?? '' }}</textarea>
+                                <textarea name="services[{{ $i }}][copy]" rows="4" class="service-copy w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">{{ $service['copy'] ?? '' }}</textarea>
                             </div>
                         </div>
                     @endforeach
@@ -174,6 +174,15 @@
                     plugins: 'link lists table code',
                     toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table | code',
                     height: 400,
+                });
+
+                tinymce.init({
+                    selector: '.service-copy',
+                    menubar: false,
+                    plugins: 'lists link textcolor',
+                    toolbar: 'undo redo | bold italic underline forecolor | bullist numlist | link',
+                    height: 200,
+                    branding: false,
                 });
             }
         });

@@ -143,14 +143,16 @@
                              ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
                          ];
                      }
-                     $services = collect($services)->filter(function ($s) {
-                         return !empty(trim($s['title'] ?? '')) || !empty(trim($s['copy'] ?? ''));
-                     })->values();
-                 @endphp
-                 @foreach($services as $service)
+                    $services = collect($services)->filter(function ($s) {
+                        return !empty(trim($s['title'] ?? '')) || !empty(trim($s['copy'] ?? ''));
+                    })->values();
+                @endphp
+                @foreach($services as $service)
                     <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
                         <h3 class="font-semibold text-slate-900">{{ $service['title'] }}</h3>
-                        <p class="text-sm text-slate-600 mt-2">{{ $service['copy'] }}</p>
+                        <div class="prose prose-sm max-w-none text-slate-600 mt-2">
+                            {!! $service['copy'] !!}
+                        </div>
                     </div>
                 @endforeach
             </div>
