@@ -44,8 +44,8 @@
                 <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">{{ $content['hero_title'] ?? 'Starlink & Spacelink Internet for homes, SMEs, and remote sites' }}</h1>
                 <p class="text-lg text-slate-600">{{ $content['hero_subtitle'] ?? 'Kits delivered, installed, and optimized by local engineers. Reliable connectivity with responsive support and flexible plans.' }}</p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('products.index') }}" class="btn-theme">{{ $content['cta_text'] ?? 'View plans' }}</a>
-                    <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">Chat with an expert</a>
+                    <a href="{{ route('products.index') }}" class="btn-orange">{{ $content['cta_text'] ?? 'View plans' }}</a>
+                    <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="btn-outline-blue">Chat with an expert</a>
                 </div>
                 <div class="flex flex-wrap gap-6 text-sm text-slate-600">
                     <div><span class="font-semibold text-slate-900">2000+ </span>Installs delivered</div>
@@ -140,9 +140,8 @@
                         @endphp
                         <p class="text-sm text-slate-600 mt-2">{{ $desc }}</p>
                         <div class="mt-4 flex gap-2">
-                            @php $btnStyle = 'background:linear-gradient(180deg,#ff9b34 0%,#ff8a1f 100%);color:#fff;text-decoration:none;border:none;'; @endphp
-                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold" style="{{ $btnStyle }}">View</a>
-                            <a href="tel:+254774849471" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold" style="{{ $btnStyle }}">Call</a>
+                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-orange text-sm font-semibold justify-center">View</a>
+                            <a href="tel:+254774849471" class="flex-1 btn-outline-blue text-sm font-semibold justify-center">Call</a>
                         </div>
                     </div>
                 @empty
@@ -245,8 +244,8 @@
                         </div>
                     </div>
                     <div class="pt-4 flex flex-wrap gap-3">
-                        <a href="#contact" class="btn-theme">Talk to our engineers</a>
-                        <a href="{{ route('products.index') }}" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">View plans</a>
+                        <a href="#contact" class="btn-orange">Talk to our engineers</a>
+                        <a href="{{ route('products.index') }}" class="btn-outline-blue">View plans</a>
                     </div>
                 </div>
             </div>

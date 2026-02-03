@@ -62,7 +62,7 @@
                 <label class="block text-sm font-semibold text-slate-700" for="quantity">Quantity</label>
                         <div class="flex items-center gap-3">
                             <input type="number" id="quantity" name="quantity" value="1" min="1" class="w-24 rounded border border-slate-200 px-3 py-2">
-                            <button class="btn-theme px-5 py-3 disabled:opacity-60" {{ $product->inStock() ? '' : 'disabled' }}>
+                            <button class="btn-orange px-5 py-3 disabled:opacity-60" {{ $product->inStock() ? '' : 'disabled' }}>
                                 {{ $product->inStock() ? 'Add to cart' : 'Out of stock' }}
                             </button>
                         </div>

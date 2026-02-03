@@ -22,7 +22,7 @@
         <label class="flex items-center gap-2 text-sm">
             <input type="checkbox" name="in_stock" value="1" @checked(request('in_stock'))> In stock
         </label>
-        <button class="md:col-span-2 px-4 py-2 btn-theme">Filter</button>
+        <button class="md:col-span-2 px-4 py-2 btn-orange">Filter</button>
     </form>
 
     <div class="grid gap-6 md:grid-cols-3">
@@ -53,16 +53,16 @@
                     <p class="text-sm text-emerald-600">On sale (was KES {{ number_format($product->price,2) }})</p>
                 @endif
                 <p class="text-sm mt-1 {{ $product->inStock() ? 'text-emerald-600' : 'text-rose-600' }}">{{ $product->inStock() ? 'In stock' : 'Out of stock' }}</p>
-                <div class="mt-auto flex gap-2 pt-3">
-                    <a href="{{ route('products.show', $product->slug) }}" class="px-3 py-2 btn-theme">View</a>
-                    @if($product->inStock())
-                        <form method="POST" action="{{ route('cart.add', $product->id) }}" class="flex-1 text-right">
-                            @csrf
-                            <input type="hidden" name="quantity" value="1">
-                            <button class="px-3 py-2 btn-theme w-full">Add to cart</button>
-                        </form>
-                    @endif
-                </div>
+                        <div class="mt-auto flex gap-2 pt-3">
+                            <a href="{{ route('products.show', $product->slug) }}" class="px-3 py-2 btn-orange">View</a>
+                            @if($product->inStock())
+                                <form method="POST" action="{{ route('cart.add', $product->id) }}" class="flex-1 text-right">
+                                    @csrf
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button class="px-3 py-2 btn-orange w-full">Add to cart</button>
+                                </form>
+                            @endif
+                        </div>
             </div>
         @empty
             <p>No products found.</p>
