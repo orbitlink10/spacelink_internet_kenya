@@ -5,10 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="@yield('meta_description', 'Spacelink Internet Kenya - Reliable internet connectivity, 4G kits, and broadband for homes and businesses.')">
     <title>@yield('title', 'Spacelink Internet')</title>
+    <link rel="canonical" href="@yield('canonical', url()->current())">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    {{-- Open Graph / Twitter --}}
+    @php
+        $ogTitle = trim($__env->yieldContent('title', 'Spacelink Internet'));
+        $ogDesc = trim($__env->yieldContent('meta_description', 'Spacelink Internet Kenya - Reliable internet connectivity, 4G kits, and broadband for homes and businesses.'));
+        $ogImage = trim($__env->yieldContent('meta_image', asset('images/og-placeholder.png')));
+    @endphp
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $ogTitle }}">
+    <meta property="og:description" content="{{ $ogDesc }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $ogTitle }}">
+    <meta name="twitter:description" content="{{ $ogDesc }}">
+    <meta name="twitter:image" content="{{ $ogImage }}">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
+    @stack('head')
 </head>
 <body class="bg-[#f5f7fb] text-slate-800 antialiased theme-body" style="font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
     <div class="min-h-screen flex flex-col">

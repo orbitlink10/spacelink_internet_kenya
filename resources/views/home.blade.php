@@ -1,6 +1,56 @@
 ﻿@extends('layouts.app')
 
 @section('title', 'Spacelink Internet Kenya | High-Speed Satellite & Broadband')
+@section('meta_description', $content['hero_subtitle'] ?? 'Reliable internet connectivity, 4G kits, and broadband for homes and businesses.')
+
+@php
+    $heroPath = $content['hero_image'] ?? null;
+    $heroLocal = $heroPath ? public_path('storage/'.$heroPath) : null;
+    $heroUrl = ($heroLocal && file_exists($heroLocal)) ? asset('storage/'.$heroPath) : asset('images/og-placeholder.png');
+@endphp
+@section('meta_image', $heroUrl)
+
+@push('head')
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Spacelink Internet Kenya",
+      "url": "{{ url('/') }}",
+      "logo": "{{ $heroUrl }}",
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "{{ $content['contact_phone'] ?? '+254 741 446 150' }}",
+        "contactType": "customer support",
+        "areaServed": "KE"
+      }]
+    }
+    </script>
+    @if($products->count())
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        @foreach($products as $index => $product)
+        {
+          "@type": "ListItem",
+          "position": {{ $index + 1 }},
+          "url": "{{ route('products.show', $product->slug) }}",
+          "name": "{{ $product->name }}",
+          "image": "{{ optional($product->images->first())->url ?? $heroUrl }}",
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "KES",
+            "price": "{{ $product->sale_price ?? $product->price }}"
+          }
+        }@if(!$loop->last),@endif
+        @endforeach
+      ]
+    }
+    </script>
+    @endif
+@endpush
 
 @section('content')
         @php
