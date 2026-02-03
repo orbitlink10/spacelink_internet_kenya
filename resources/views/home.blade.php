@@ -209,10 +209,18 @@
             <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Ready to connect?</p>
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Talk to our team today</h2>
             <p class="text-slate-600 text-lg">Share your location and needs; we’ll recommend the best kit and schedule installation.</p>
+            @php
+                $btnOrangeStyle = $btnOrangeStyle ?? 'background:#ff951e;color:#fff;border:none;box-shadow:0 10px 22px rgba(255,149,30,0.28);padding:12px 18px;border-radius:14px;text-decoration:none;';
+                $btnBlueOutline = $btnBlueOutline ?? 'border:2px solid #1f7aff;color:#1f7aff;background:#fff;padding:12px 18px;border-radius:14px;text-decoration:none;box-shadow:0 6px 16px rgba(31,122,255,0.16);';
+                $contactPhone = $content['contact_phone'] ?? ($homeContent['contact_phone'] ?? '+254 774 849 471');
+                $contactEmail = $content['contact_email'] ?? ($homeContent['contact_email'] ?? 'info@spacelinkkenya.co.ke');
+                $waNumber = preg_replace('/\\D+/', '', ($content['contact_whatsapp'] ?? $homeContent['contact_whatsapp'] ?? '254774849471'));
+                $waLink = 'https://wa.me/'.$waNumber;
+            @endphp
             <div class="pt-4 flex flex-col md:flex-row items-center justify-center gap-3">
-                <a class="px-6 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md hover:bg-slate-800" href="https://wa.me/254774849471" target="_blank" rel="noreferrer">WhatsApp Sales</a>
-                <a class="px-6 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white" href="mailto:info@spacelinkkenya.co.ke">Email us</a>
-                <a class="px-6 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white" href="tel:+254774849471">Call +254 774 849 471</a>
+                <a class="btn-orange" style="{{ $btnOrangeStyle }}" href="{{ $waLink }}" target="_blank" rel="noreferrer">WhatsApp Sales</a>
+                <a class="btn-outline-blue" style="{{ $btnBlueOutline }}" href="mailto:{{ $contactEmail }}">Email us</a>
+                <a class="btn-outline-blue" style="{{ $btnBlueOutline }}" href="tel:{{ $contactPhone }}">Call {{ $contactPhone }}</a>
             </div>
         </div>
     </section>
