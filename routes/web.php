@@ -32,6 +32,12 @@ Route::get('/', function () {
             ['title' => 'Coverage', 'copy' => 'Nairobi, Kiambu, Kajiado, Mombasa, Kisumu, Eldoret and more.'],
             ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
         ],
+        'testimonials' => [
+            ['title' => 'Nationwide ISP Network', 'copy' => 'Core/edge upgrades across Nairobi, Mombasa, Kisumu, and Eldoret with 99.95% uptime targets.'],
+            ['title' => 'Healthcare Campus Wi‑Fi', 'copy' => 'Multi-building secure Wi‑Fi with guest/staff segmentation and SD‑WAN failover.'],
+            ['title' => 'Construction & Remote Sites', 'copy' => 'Starlink + 4G hybrid links with portable power for remote build sites and camps.'],
+            ['title' => 'Events & Broadcasts', 'copy' => 'Pop-up high-bandwidth connectivity for live events, TV uplinks, and exhibitions.'],
+        ],
     ];
 
     $stored = [];
@@ -155,6 +161,9 @@ Route::middleware('admin.auth')->group(function () {
             'services' => ['nullable', 'array', 'max:12'],
             'services.*.title' => ['nullable', 'string', 'max:160'],
             'services.*.copy' => ['nullable', 'string', 'max:400'],
+            'testimonials' => ['nullable', 'array', 'max:8'],
+            'testimonials.*.title' => ['nullable', 'string', 'max:160'],
+            'testimonials.*.copy' => ['nullable', 'string', 'max:400'],
         ]);
 
         $existing = [];
@@ -187,6 +196,25 @@ Route::middleware('admin.auth')->group(function () {
             $cleanServices = $existing['services'] ?? $defaults['services'];
         }
         $data['services'] = array_values($cleanServices);
+
+        // Testimonials
+        $cleanTestimonials = [];
+        if (!empty($data['testimonials'] ?? [])) {
+            foreach ($data['testimonials'] as $row) {
+                $title = trim($row['title'] ?? '');
+                $copy = trim($row['copy'] ?? '');
+                if ($title !== '' || $copy !== '') {
+                    $cleanTestimonials[] = [
+                        'title' => $title,
+                        'copy' => $copy,
+                    ];
+                }
+            }
+        }
+        if (empty($cleanTestimonials)) {
+            $cleanTestimonials = $existing['testimonials'] ?? $defaults['testimonials'];
+        }
+        $data['testimonials'] = array_values($cleanTestimonials);
 
         Storage::disk('local')->put('homepage.json', json_encode($data, JSON_PRETTY_PRINT));
 

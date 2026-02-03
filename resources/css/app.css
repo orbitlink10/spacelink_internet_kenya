@@ -35,3 +35,28 @@
 .rich-copy a { color: #0f75b8; text-decoration: underline; }
 .rich-copy ul, .rich-copy ol { margin: 0.9em 0 0.9em 1.25em; }
 .rich-copy li { margin-bottom: 0.35em; }
+.rich-copy ul { list-style: disc; }
+.rich-copy ol { list-style: decimal; }
+
+/* Theme button */
+.btn-theme {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.4rem;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, #ff9b34 0%, #ff8a1f 100%);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(255, 138, 31, 0.25);
+    transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+    border: none;
+    text-decoration: none;
+}
+.btn-theme:hover {
+    filter: brightness(0.95);
+    box-shadow: 0 14px 26px rgba(255, 138, 31, 0.3);
+}
+.btn-theme:active {
+    transform: translateY(1px);
+}

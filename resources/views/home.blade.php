@@ -44,7 +44,7 @@
                 <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">{{ $content['hero_title'] ?? 'Starlink & Spacelink Internet for homes, SMEs, and remote sites' }}</h1>
                 <p class="text-lg text-slate-600">{{ $content['hero_subtitle'] ?? 'Kits delivered, installed, and optimized by local engineers. Reliable connectivity with responsive support and flexible plans.' }}</p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('products.index') }}" class="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md">{{ $content['cta_text'] ?? 'View plans' }}</a>
+                    <a href="{{ route('products.index') }}" class="btn-theme">{{ $content['cta_text'] ?? 'View plans' }}</a>
                     <a href="https://wa.me/254774849471" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">Chat with an expert</a>
                 </div>
                 <div class="flex flex-wrap gap-6 text-sm text-slate-600">
@@ -73,13 +73,39 @@
         </div>
     </section>
 
-    <!-- Packages / shop preview -->
-    <section id="packages" class="py-14 bg-white border-t border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex items-center justify-between gap-4 flex-wrap">
-                <div>
-                    <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Shop</p>
-                    <h2 class="mt-3 text-3xl font-bold text-slate-900">Popular Starlink & Spacelink offers</h2>
+        <!-- Testimonials / installs -->
+        @php
+            $testimonials = $content['testimonials'] ?? [];
+            $testimonials = collect($testimonials)->filter(function ($t) {
+                return !empty(trim($t['title'] ?? '')) || !empty(trim($t['copy'] ?? ''));
+            })->values();
+        @endphp
+        @if($testimonials->count())
+            <section class="py-14 bg-white border-t border-b border-slate-200">
+                <div class="max-w-6xl mx-auto px-6">
+                    <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Testimonials</p>
+                    <h2 class="mt-3 text-3xl font-bold text-slate-900">Where We’ve Delivered Connectivity: Trusted by Organizations Nationwide.</h2>
+                    <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        @foreach($testimonials as $item)
+                            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                                <h3 class="font-semibold text-slate-900">{{ $item['title'] }}</h3>
+                                <div class="rich-copy text-slate-700 mt-2">
+                                    {!! $item['copy'] !!}
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
+
+        <!-- Packages / shop preview -->
+        <section id="packages" class="py-14 bg-white border-b border-slate-200">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="flex items-center justify-between gap-4 flex-wrap">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Shop</p>
+                        <h2 class="mt-3 text-3xl font-bold text-slate-900">Popular Starlink & Spacelink offers</h2>
                 </div>
                 <a class="inline-flex items-center gap-2 text-cyan-700 hover:text-cyan-900 font-semibold" href="{{ route('products.index') }}">View all →</a>
             </div>
@@ -150,7 +176,7 @@
                 @foreach($services as $service)
                     <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
                         <h3 class="font-semibold text-slate-900">{{ $service['title'] }}</h3>
-                        <div class="prose prose-sm max-w-none text-slate-600 mt-2">
+                        <div class="rich-copy text-slate-700 mt-2">
                             {!! $service['copy'] !!}
                         </div>
                     </div>
@@ -218,7 +244,7 @@
                         </div>
                     </div>
                     <div class="pt-4 flex flex-wrap gap-3">
-                        <a href="#contact" class="px-5 py-3 rounded-full bg-slate-900 text-white font-semibold shadow-md">Talk to our engineers</a>
+                        <a href="#contact" class="btn-theme">Talk to our engineers</a>
                         <a href="{{ route('products.index') }}" class="px-5 py-3 rounded-full border border-slate-300 text-slate-900 font-semibold bg-white">View plans</a>
                     </div>
                 </div>

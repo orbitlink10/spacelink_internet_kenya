@@ -36,7 +36,7 @@
             <div class="text-right">
                 <p class="text-sm text-slate-600">Subtotal</p>
                 <p class="text-2xl font-bold text-slate-900">KES {{ number_format($cart->total(), 2) }}</p>
-                <a href="{{ route('checkout.show') }}" class="mt-3 inline-flex px-5 py-3 rounded bg-blue-600 text-white font-semibold">Checkout</a>
+                <a href="{{ route('checkout.show') }}" class="mt-3 inline-flex px-5 py-3 btn-theme font-semibold">Checkout</a>
             </div>
         </div>
     @endif

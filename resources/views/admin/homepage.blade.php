@@ -152,6 +152,50 @@
                 @error('services.*.copy')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
 
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Testimonials</p>
+                        <h3 class="text-xl font-bold text-slate-900">Where We’ve Delivered Connectivity</h3>
+                        <p class="text-sm text-slate-600">List installs/projects that appear above the Shop section.</p>
+                    </div>
+                </div>
+
+                @php
+                    $testimonials = old('testimonials', $content['testimonials'] ?? []);
+                    if (empty($testimonials)) {
+                        $testimonials = [
+                            ['title' => 'Nationwide ISP Network', 'copy' => 'Core/edge upgrades across Nairobi, Mombasa, Kisumu, Eldoret with 99.95% uptime targets.'],
+                            ['title' => 'Healthcare Campus Wi‑Fi', 'copy' => 'Secure staff/guest SSIDs, SD‑WAN failover, and proactive monitoring for medical campuses.'],
+                            ['title' => 'Remote Sites & Camps', 'copy' => 'Starlink + 4G hybrid links with portable power for construction and exploration sites.'],
+                            ['title' => 'Events & Broadcasts', 'copy' => 'High-bandwidth pop-up internet for live events, TV uplinks, and exhibitions.'],
+                        ];
+                    }
+                    while (count($testimonials) < 8) {
+                        $testimonials[] = ['title' => '', 'copy' => ''];
+                    }
+                @endphp
+
+                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    @foreach($testimonials as $i => $item)
+                        <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+                            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Card {{ $i + 1 }}</p>
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-slate-700">Title</label>
+                                <input type="text" name="testimonials[{{ $i }}][title]" value="{{ $item['title'] ?? '' }}" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-slate-700">Copy</label>
+                                <textarea name="testimonials[{{ $i }}][copy]" rows="4" class="testimonial-copy w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">{{ $item['copy'] ?? '' }}</textarea>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <p class="text-xs text-slate-500">Use bullets, bold, and links to highlight project details. Empty rows are ignored.</p>
+                @error('testimonials.*.title')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+                @error('testimonials.*.copy')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+            </div>
+
             <div class="flex items-center gap-3 pt-2">
                 <button type="submit" class="px-5 py-3 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-200">Save</button>
                 <a href="{{ route('admin.dashboard') }}" class="px-5 py-3 rounded-xl border border-slate-300 text-slate-800 font-semibold bg-white">Cancel</a>
@@ -182,6 +226,15 @@
                     plugins: 'lists link textcolor',
                     toolbar: 'undo redo | bold italic underline forecolor | bullist numlist | link',
                     height: 200,
+                    branding: false,
+                });
+
+                tinymce.init({
+                    selector: '.testimonial-copy',
+                    menubar: false,
+                    plugins: 'lists link textcolor',
+                    toolbar: 'undo redo | bold italic underline forecolor | bullist numlist | link',
+                    height: 180,
                     branding: false,
                 });
             }

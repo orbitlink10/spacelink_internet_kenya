@@ -60,13 +60,13 @@
             <form method="POST" action="{{ route('cart.add', $product->id) }}" class="space-y-3">
                 @csrf
                 <label class="block text-sm font-semibold text-slate-700" for="quantity">Quantity</label>
-                <div class="flex items-center gap-3">
-                    <input type="number" id="quantity" name="quantity" value="1" min="1" class="w-24 rounded border border-slate-200 px-3 py-2">
-                    <button class="px-5 py-3 rounded bg-blue-600 text-white font-semibold shadow-md disabled:opacity-60" {{ $product->inStock() ? '' : 'disabled' }}>
-                        {{ $product->inStock() ? 'Add to cart' : 'Out of stock' }}
-                    </button>
-                </div>
-            </form>
+                        <div class="flex items-center gap-3">
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" class="w-24 rounded border border-slate-200 px-3 py-2">
+                            <button class="btn-theme px-5 py-3 disabled:opacity-60" {{ $product->inStock() ? '' : 'disabled' }}>
+                                {{ $product->inStock() ? 'Add to cart' : 'Out of stock' }}
+                            </button>
+                        </div>
+                    </form>
         </div>
     </div>
 
