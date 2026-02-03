@@ -124,6 +124,10 @@
                             ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
                         ];
                     }
+                    // pad to 12 slots
+                    while (count($services) < 12) {
+                        $services[] = ['title' => '', 'copy' => ''];
+                    }
                 @endphp
 
                 <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -143,7 +147,7 @@
                         </div>
                     @endforeach
                 </div>
-                <p class="text-xs text-slate-500">You can edit the six cards above; leave blanks to keep defaults.</p>
+                <p class="text-xs text-slate-500">You can edit up to 12 cards; leave blanks to keep defaults.</p>
                 @error('services.*.title')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
                 @error('services.*.copy')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>

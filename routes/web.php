@@ -152,9 +152,9 @@ Route::middleware('admin.auth')->group(function () {
             'testimonial_blurb' => ['required', 'string', 'max:220'],
             'hero_image' => ['nullable', 'image', 'max:2048'],
             'long_content' => ['nullable', 'string'],
-            'services' => ['nullable', 'array', 'max:10'],
-            'services.*.title' => ['required_with:services', 'string', 'max:120'],
-            'services.*.copy' => ['required_with:services', 'string', 'max:240'],
+            'services' => ['nullable', 'array', 'max:12'],
+            'services.*.title' => ['nullable', 'string', 'max:160'],
+            'services.*.copy' => ['nullable', 'string', 'max:400'],
         ]);
 
         $existing = [];
@@ -169,10 +169,24 @@ Route::middleware('admin.auth')->group(function () {
             $data['hero_image'] = $existing['hero_image'] ?? null;
         }
 
-        // Merge services with fallback defaults if none supplied
-        if (empty($data['services'] ?? [])) {
-            $data['services'] = $existing['services'] ?? $defaults['services'];
+        // Clean services: drop empty rows, fall back to defaults if none remain
+        $cleanServices = [];
+        if (!empty($data['services'] ?? [])) {
+            foreach ($data['services'] as $row) {
+                $title = trim($row['title'] ?? '');
+                $copy = trim($row['copy'] ?? '');
+                if ($title !== '' || $copy !== '') {
+                    $cleanServices[] = [
+                        'title' => $title,
+                        'copy' => $copy,
+                    ];
+                }
+            }
         }
+        if (empty($cleanServices)) {
+            $cleanServices = $existing['services'] ?? $defaults['services'];
+        }
+        $data['services'] = array_values($cleanServices);
 
         Storage::disk('local')->put('homepage.json', json_encode($data, JSON_PRETTY_PRINT));
 
