@@ -140,8 +140,9 @@
                         @endphp
                         <p class="text-sm text-slate-600 mt-2">{{ $desc }}</p>
                         <div class="mt-4 flex gap-2">
-                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold">View</a>
-                            <a href="tel:+254774849471" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold">Call</a>
+                            @php $btnStyle = 'background:linear-gradient(180deg,#ff9b34 0%,#ff8a1f 100%);color:#fff;text-decoration:none;border:none;'; @endphp
+                            <a href="{{ route('products.show', $product->slug) }}" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold" style="{{ $btnStyle }}">View</a>
+                            <a href="tel:+254774849471" class="flex-1 btn-theme inline-flex justify-center text-sm font-semibold" style="{{ $btnStyle }}">Call</a>
                         </div>
                     </div>
                 @empty
