@@ -131,17 +131,20 @@
             <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Services</p>
             <h2 class="mt-3 text-3xl font-bold text-slate-900">Internet that fits every scenario</h2>
             <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                @php
-                    $services = [
-                        ['title' => 'Home & SME', 'copy' => 'Starlink, 4G, and broadband with smart Wi‑Fi design.'],
-                        ['title' => 'Enterprise', 'copy' => 'Dedicated fibre, SD‑WAN, QoS, and proactive monitoring.'],
-                        ['title' => 'Events & Field', 'copy' => 'Rapid deployment internet for pop‑ups, sites, and broadcasts.'],
-                        ['title' => 'Support', 'copy' => '24/7 NOC, remote diagnostics, and on‑site engineers.'],
-                        ['title' => 'Coverage', 'copy' => 'Nairobi, Kiambu, Kajiado, Mombasa, Kisumu, Eldoret and more.'],
-                        ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
-                    ];
-                @endphp
-                @foreach($services as $service)
+                 @php
+                     $services = $content['services'] ?? [];
+                     if (empty($services)) {
+                         $services = [
+                             ['title' => 'Home & SME', 'copy' => 'Starlink, 4G, and broadband with smart Wi‑Fi design.'],
+                             ['title' => 'Enterprise', 'copy' => 'Dedicated fibre, SD‑WAN, QoS, and proactive monitoring.'],
+                             ['title' => 'Events & Field', 'copy' => 'Rapid deployment internet for pop-ups, sites, and broadcasts.'],
+                             ['title' => 'Support', 'copy' => '24/7 NOC, remote diagnostics, and on-site engineers.'],
+                             ['title' => 'Coverage', 'copy' => 'Nairobi, Kiambu, Kajiado, Mombasa, Kisumu, Eldoret and more.'],
+                             ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
+                         ];
+                     }
+                 @endphp
+                 @foreach($services as $service)
                     <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
                         <h3 class="font-semibold text-slate-900">{{ $service['title'] }}</h3>
                         <p class="text-sm text-slate-600 mt-2">{{ $service['copy'] }}</p>

@@ -24,6 +24,14 @@ Route::get('/', function () {
         'testimonial_blurb' => 'The install was same-day and the speeds stayed fast.',
         'hero_image' => null,
         'long_content' => null,
+        'services' => [
+            ['title' => 'Home & SME', 'copy' => 'Starlink, 4G, and broadband with smart Wi‑Fi design.'],
+            ['title' => 'Enterprise', 'copy' => 'Dedicated fibre, SD‑WAN, QoS, and proactive monitoring.'],
+            ['title' => 'Events & Field', 'copy' => 'Rapid deployment internet for pop-ups, sites, and broadcasts.'],
+            ['title' => 'Support', 'copy' => '24/7 NOC, remote diagnostics, and on-site engineers.'],
+            ['title' => 'Coverage', 'copy' => 'Nairobi, Kiambu, Kajiado, Mombasa, Kisumu, Eldoret and more.'],
+            ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
+        ],
     ];
 
     $stored = [];
@@ -144,6 +152,9 @@ Route::middleware('admin.auth')->group(function () {
             'testimonial_blurb' => ['required', 'string', 'max:220'],
             'hero_image' => ['nullable', 'image', 'max:2048'],
             'long_content' => ['nullable', 'string'],
+            'services' => ['nullable', 'array', 'max:10'],
+            'services.*.title' => ['required_with:services', 'string', 'max:120'],
+            'services.*.copy' => ['required_with:services', 'string', 'max:240'],
         ]);
 
         $existing = [];
@@ -156,6 +167,11 @@ Route::middleware('admin.auth')->group(function () {
             $data['hero_image'] = $path;
         } else {
             $data['hero_image'] = $existing['hero_image'] ?? null;
+        }
+
+        // Merge services with fallback defaults if none supplied
+        if (empty($data['services'] ?? [])) {
+            $data['services'] = $existing['services'] ?? $defaults['services'];
         }
 
         Storage::disk('local')->put('homepage.json', json_encode($data, JSON_PRETTY_PRINT));

@@ -103,6 +103,51 @@
                 @error('long_content')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
             </div>
 
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.35em] text-orange-500">Services grid</p>
+                        <h3 class="text-xl font-bold text-slate-900">Internet that fits every scenario</h3>
+                        <p class="text-sm text-slate-600">Edit the cards shown in the Services section on the homepage.</p>
+                    </div>
+                </div>
+
+                @php
+                    $services = old('services', $content['services'] ?? []);
+                    if (empty($services)) {
+                        $services = [
+                            ['title' => 'Home & SME', 'copy' => 'Starlink, 4G, and broadband with smart Wi‑Fi design.'],
+                            ['title' => 'Enterprise', 'copy' => 'Dedicated fibre, SD‑WAN, QoS, and proactive monitoring.'],
+                            ['title' => 'Events & Field', 'copy' => 'Rapid deployment internet for pop-ups, sites, and broadcasts.'],
+                            ['title' => 'Support', 'copy' => '24/7 NOC, remote diagnostics, and on-site engineers.'],
+                            ['title' => 'Coverage', 'copy' => 'Nairobi, Kiambu, Kajiado, Mombasa, Kisumu, Eldoret and more.'],
+                            ['title' => 'Billing Flex', 'copy' => 'Monthly, project-based, or short-term event packages.'],
+                        ];
+                    }
+                @endphp
+
+                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    @foreach($services as $i => $service)
+                        <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Card {{ $i + 1 }}</p>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-slate-700">Title</label>
+                                <input type="text" name="services[{{ $i }}][title]" value="{{ $service['title'] ?? '' }}" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-slate-700">Copy</label>
+                                <textarea name="services[{{ $i }}][copy]" rows="3" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 focus:ring focus:ring-blue-100">{{ $service['copy'] ?? '' }}</textarea>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <p class="text-xs text-slate-500">You can edit the six cards above; leave blanks to keep defaults.</p>
+                @error('services.*.title')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+                @error('services.*.copy')<p class="text-sm text-rose-600">{{ $message }}</p>@enderror
+            </div>
+
             <div class="flex items-center gap-3 pt-2">
                 <button type="submit" class="px-5 py-3 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-200">Save</button>
                 <a href="{{ route('admin.dashboard') }}" class="px-5 py-3 rounded-xl border border-slate-300 text-slate-800 font-semibold bg-white">Cancel</a>
