@@ -13,7 +13,7 @@
 @push('head')
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
+      "@@context": "https://schema.org",
       "@type": "Organization",
       "name": "Spacelink Internet Kenya",
       "url": "{{ url('/') }}",
@@ -29,7 +29,7 @@
     @if($products->count())
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
+      "@@context": "https://schema.org",
       "@type": "ItemList",
       "itemListElement": [
         @foreach($products as $index => $product)
