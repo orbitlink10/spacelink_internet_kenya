@@ -57,33 +57,35 @@
     </section>
 
     <section class="bg-white">
-        <div class="max-w-6xl mx-auto px-4 py-12 md:py-16 grid gap-10 lg:grid-cols-3 items-start">
-            <div class="lg:col-span-2 space-y-8">
-                @if(!empty($image))
-                    <img src="{{ $image }}" alt="{{ $page['alt'] ?? $page['title'] }}" class="w-full rounded-2xl shadow-xl object-cover">
-                @endif
-
-                <article class="prose prose-lg max-w-none rich-copy">
-                    {!! $page['description'] ?? '' !!}
-                </article>
+        <div class="max-w-6xl mx-auto px-4 py-12 md:py-16 space-y-12">
+            <div class="grid gap-8 lg:gap-10 lg:grid-cols-3 items-start">
+                <div class="lg:col-span-2 space-y-6">
+                    @if(!empty($image))
+                        <img src="{{ $image }}" alt="{{ $page['alt'] ?? $page['title'] }}" class="w-full rounded-2xl shadow-xl object-cover">
+                    @endif
+                </div>
+                <aside class="space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-800">Page details</h2>
+                    <ul class="text-slate-700 text-sm space-y-2">
+                        <li><strong>Type:</strong> {{ $page['type'] ?? 'Page' }}</li>
+                        <li><strong>Slug:</strong> {{ $page['slug'] }}</li>
+                        @if(!empty($page['meta_title']))
+                            <li><strong>Meta title:</strong> {{ $page['meta_title'] }}</li>
+                        @endif
+                        @if(!empty($page['meta_description']))
+                            <li><strong>Meta description:</strong> {{ $page['meta_description'] }}</li>
+                        @endif
+                        <li><strong>Estimated read:</strong> {{ $readMinutes }} min</li>
+                        @if($publishedDate)
+                            <li><strong>Published:</strong> {{ $publishedDate }}</li>
+                        @endif
+                    </ul>
+                </aside>
             </div>
-            <aside class="space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm">
-                <h2 class="text-xl font-bold text-slate-800">Page details</h2>
-                <ul class="text-slate-700 text-sm space-y-2">
-                    <li><strong>Type:</strong> {{ $page['type'] ?? 'Page' }}</li>
-                    <li><strong>Slug:</strong> {{ $page['slug'] }}</li>
-                    @if(!empty($page['meta_title']))
-                        <li><strong>Meta title:</strong> {{ $page['meta_title'] }}</li>
-                    @endif
-                    @if(!empty($page['meta_description']))
-                        <li><strong>Meta description:</strong> {{ $page['meta_description'] }}</li>
-                    @endif
-                    <li><strong>Estimated read:</strong> {{ $readMinutes }} min</li>
-                    @if($publishedDate)
-                        <li><strong>Published:</strong> {{ $publishedDate }}</li>
-                    @endif
-                </ul>
-            </aside>
+
+            <article class="prose prose-lg max-w-none rich-copy md:columns-2 md:gap-10 lg:columns-2 xl:columns-3">
+                {!! $page['description'] ?? '' !!}
+            </article>
         </div>
     </section>
 </div>
